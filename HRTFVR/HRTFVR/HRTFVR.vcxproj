@@ -38,17 +38,22 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Util;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Tracking;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Service;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Sensors;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Kernel;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Displays;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\CAPI\GL;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Net;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Include;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\HRTFVR\glfw-3.0.4.bin.WIN32\include;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\HRTFVR\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\LibOVR\Src\Util;$(ProjectDir)..\..\LibOVR\Src\Tracking;$(ProjectDir)..\..\LibOVR\Src\Service;$(ProjectDir)..\..\LibOVR\Src\Sensors;$(ProjectDir)..\..\LibOVR\Src\Kernel;$(ProjectDir)..\..\LibOVR\Src;$(ProjectDir)..\..\LibOVR\Src\Displays;$(ProjectDir)..\..\LibOVR\Src\CAPI\GL;$(ProjectDir)..\..\LibOVR\Src\Net;$(ProjectDir)..\..\LibOVR\Include;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\include;$(ProjectDir)..\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Lib\Win32\VS2013;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\HRTFVR\glew-1.11.0\lib\Release\Win32;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\HRTFVR\glfw-3.0.4.bin.WIN32\lib-msvc120;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\LibOVR\Lib\Win32\VS2013;$(ProjectDir)..\glew-1.11.0\lib\Release\Win32;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\lib-msvc120;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;ws2_32.lib;libovr.lib;libovrd.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -59,13 +64,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Util;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Tracking;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Service;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Sensors;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Kernel;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Displays;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\CAPI\GL;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Src\Net;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Include;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\HRTFVR\glfw-3.0.4.bin.WIN32\include;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\HRTFVR\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\LibOVR\Src\Util;$(ProjectDir)..\..\LibOVR\Src\Tracking;$(ProjectDir)..\..\LibOVR\Src\Service;$(ProjectDir)..\..\LibOVR\Src\Sensors;$(ProjectDir)..\..\LibOVR\Src\Kernel;$(ProjectDir)..\..\LibOVR\Src;$(ProjectDir)..\..\LibOVR\Src\Displays;$(ProjectDir)..\..\LibOVR\Src\CAPI\GL;$(ProjectDir)..\..\LibOVR\Src\Net;$(ProjectDir)..\..\LibOVR\Include;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\include;$(ProjectDir)..\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\LibOVR\Lib\Win32\VS2013;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\HRTFVR\glew-1.11.0\lib\Release\Win32;D:\DATA\PROJECTS\AVPRG\OVR_testprojekt\HRTFVR\glfw-3.0.4.bin.WIN32\lib-msvc120;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\LibOVR\Lib\Win32\VS2013;$(ProjectDir)..\glew-1.11.0\lib\Release\Win32;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\lib-msvc120;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;ws2_32.lib;libovr.lib;libovrd.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
