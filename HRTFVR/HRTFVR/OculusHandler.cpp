@@ -24,6 +24,7 @@ bool OculusHandler::initialize(){
 	if (hmd){
 		riftConnected = true;
 
+	
 		// Get more details about the HMD.
 		ovrSizei resolution = hmd->Resolution;
 

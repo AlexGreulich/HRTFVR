@@ -98,7 +98,7 @@ int main(void)
 		
 		/*
 
-		RENDER, AUDIO AND TRACKING CODE GOES HERE
+		RENDER AND AUDIO Code GOES HERE
 
 		*/
 
