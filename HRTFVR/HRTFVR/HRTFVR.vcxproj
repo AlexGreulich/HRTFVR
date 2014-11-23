@@ -49,7 +49,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\LibOVR\Src\Util;$(ProjectDir)..\..\LibOVR\Src\Tracking;$(ProjectDir)..\..\LibOVR\Src\Service;$(ProjectDir)..\..\LibOVR\Src\Sensors;$(ProjectDir)..\..\LibOVR\Src\Kernel;$(ProjectDir)..\..\LibOVR\Src;$(ProjectDir)..\..\LibOVR\Src\Displays;$(ProjectDir)..\..\LibOVR\Src\CAPI\GL;$(ProjectDir)..\..\LibOVR\Src\Net;$(ProjectDir)..\..\LibOVR\Include;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\include;$(ProjectDir)..\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\LibOVR\Src\Util;$(ProjectDir)..\..\LibOVR\Src\Tracking;$(ProjectDir)..\..\LibOVR\Src\Service;$(ProjectDir)..\..\LibOVR\Src\Sensors;$(ProjectDir)..\..\LibOVR\Src\Kernel;$(ProjectDir)..\..\LibOVR\Src;$(ProjectDir)..\..\LibOVR\Src\Displays;$(ProjectDir)..\glm\glm;$(ProjectDir)..\..\LibOVR\Src\CAPI\GL;$(ProjectDir)..\..\LibOVR\Src\Net;$(ProjectDir)..\..\LibOVR\Include;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\include;$(ProjectDir)..\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,7 +64,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\LibOVR\Src\Util;$(ProjectDir)..\..\LibOVR\Src\Tracking;$(ProjectDir)..\..\LibOVR\Src\Service;$(ProjectDir)..\..\LibOVR\Src\Sensors;$(ProjectDir)..\..\LibOVR\Src\Kernel;$(ProjectDir)..\..\LibOVR\Src;$(ProjectDir)..\..\LibOVR\Src\Displays;$(ProjectDir)..\..\LibOVR\Src\CAPI\GL;$(ProjectDir)..\..\LibOVR\Src\Net;$(ProjectDir)..\..\LibOVR\Include;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\include;$(ProjectDir)..\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\LibOVR\Src\Util;$(ProjectDir)..\..\LibOVR\Src\Tracking;$(ProjectDir)..\..\LibOVR\Src\Service;$(ProjectDir)..\..\LibOVR\Src\Sensors;$(ProjectDir)..\..\LibOVR\Src\Kernel;$(ProjectDir)..\..\LibOVR\Src;$(ProjectDir)..\..\LibOVR\Src\Displays;$(ProjectDir)..\glm\glm;$(ProjectDir)..\..\LibOVR\Src\CAPI\GL;$(ProjectDir)..\..\LibOVR\Src\Net;$(ProjectDir)..\..\LibOVR\Include;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\include;$(ProjectDir)..\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
