@@ -30,9 +30,6 @@
     <ClInclude Include="ObjLoader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ObjParser.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VRmain.cpp">
@@ -48,9 +45,6 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ObjLoader.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjParser.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
