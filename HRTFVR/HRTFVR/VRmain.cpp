@@ -48,7 +48,7 @@ void VRmain::destroyAndCleanse(){
 
 int main(void)
 {	
-	ObjLoader* loader = new ObjLoader();
+	VRmain *vrmain = new VRmain();
 	//Set the error callback  
 	glfwSetErrorCallback(error_callback);
 
@@ -94,7 +94,7 @@ int main(void)
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 		return -1;
 	}
-	loader->processFiles();
+	vrmain->sceneManager->loadObjFiles();
 	//Set a background color  
 	glClearColor(0.0f, 0.0f, 1.0f, 0.0f);
 
