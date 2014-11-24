@@ -31,6 +31,9 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 }
 
 void VRmain::init() {
+
+	sceneManager  = new SceneManager();
+	renderer = new Renderer();
 	// On construction create new OVR- Handler, needs to be destroyed
 	oculus = new OculusHandler();
 	// If no Rift is connected, useRift is false
@@ -100,7 +103,7 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 
-	
+		
 
 
 		/*
