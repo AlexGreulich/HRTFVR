@@ -30,6 +30,9 @@
     <ClInclude Include="ObjLoader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectMesh.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VRmain.cpp">
@@ -45,6 +48,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ObjLoader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectMesh.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ObjectMesh.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="OculusHandler.h" />
     <ClInclude Include="SceneManager.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="VRmain.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjectMesh.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="OculusHandler.cpp" />
     <ClCompile Include="SceneManager.cpp" />

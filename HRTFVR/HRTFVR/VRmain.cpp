@@ -2,6 +2,7 @@
 #include <GL/glew.h>  
 //#include <GL/glxew.h>
 #include <GLFW/glfw3.h>  
+#include "ObjLoader.h"
 #include <glm.hpp>
 #include <stdio.h>  
 #include <stdlib.h>  
@@ -34,6 +35,7 @@ void VRmain::init() {
 	oculus = new OculusHandler();
 	// If no Rift is connected, useRift is false
 	useRift = oculus->initialize();
+
 }
 
 void VRmain::destroyAndCleanse(){
@@ -42,6 +44,7 @@ void VRmain::destroyAndCleanse(){
 
 int main(void)
 {	
+	new ObjLoader();
 	//Set the error callback  
 	glfwSetErrorCallback(error_callback);
 
