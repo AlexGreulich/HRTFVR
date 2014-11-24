@@ -5,7 +5,7 @@
 #include "Renderer.h"
 class VRmain{
 public:
-	explicit VRmain();
+	VRmain();
 	~VRmain();
 	OculusHandler* oculus;
 	SceneManager* sceneManager;

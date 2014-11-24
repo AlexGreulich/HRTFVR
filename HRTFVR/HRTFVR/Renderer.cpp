@@ -3,7 +3,6 @@
 using namespace std;
 
 Renderer::Renderer()
-	: 
 {
 
 }

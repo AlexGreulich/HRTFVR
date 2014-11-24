@@ -33,12 +33,13 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 void VRmain::init() {
 
 	sceneManager  = new SceneManager();
+	
 	renderer = new Renderer();
 	// On construction create new OVR- Handler, needs to be destroyed
 	oculus = new OculusHandler();
 	// If no Rift is connected, useRift is false
 	useRift = oculus->initialize();
-
+	
 }
 
 void VRmain::destroyAndCleanse(){
@@ -47,7 +48,7 @@ void VRmain::destroyAndCleanse(){
 
 int main(void)
 {	
-	new ObjLoader();
+	ObjLoader* loader = new ObjLoader();
 	//Set the error callback  
 	glfwSetErrorCallback(error_callback);
 
@@ -56,7 +57,7 @@ int main(void)
 	{
 		exit(EXIT_FAILURE);
 	}
-
+	
 	//Set the GLFW window creation hints - these are optional  
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //Request a specific OpenGL version  
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2); //Request a specific OpenGL version  
@@ -77,6 +78,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
+	
 	//This function makes the context of the specified window current on the calling thread.   
 	glfwMakeContextCurrent(window);
 
@@ -92,7 +94,7 @@ int main(void)
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 		return -1;
 	}
-
+	loader->processFiles();
 	//Set a background color  
 	glClearColor(0.0f, 0.0f, 1.0f, 0.0f);
 

@@ -12,9 +12,12 @@ vector<Entity> sceneObjects;
 
 SceneManager::SceneManager()
 {
-	
+	objLoader = new ObjLoader();
 }
 
+void SceneManager::loadObjFiles(){
+	objLoader->processFiles();
+}
 
 SceneManager::~SceneManager()
 {
