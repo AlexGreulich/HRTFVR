@@ -3,6 +3,7 @@
 #include "OculusHandler.h"
 #include "SceneManager.h"
 #include "Renderer.h"
+#include "InputHandler.h"
 class VRmain{
 public:
 	VRmain();
@@ -10,6 +11,7 @@ public:
 	OculusHandler* oculus;
 	SceneManager* sceneManager;
 	Renderer* renderer;
+	InputHandler* inputHandler;
 
 private: 
 	bool useRift;

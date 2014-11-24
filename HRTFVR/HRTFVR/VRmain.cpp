@@ -23,13 +23,6 @@ static void error_callback(int error, const char* description)
 	_fgetchar();
 }
 
-//Define the key input callback  
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
 void VRmain::init() {
 
 	sceneManager  = new SceneManager();
@@ -39,7 +32,8 @@ void VRmain::init() {
 	oculus = new OculusHandler();
 	// If no Rift is connected, useRift is false
 	useRift = oculus->initialize();
-	
+
+	inputHandler = new InputHandler();
 }
 
 void VRmain::destroyAndCleanse(){
@@ -83,7 +77,7 @@ int main(void)
 	glfwMakeContextCurrent(window);
 
 	//Sets the key callback  
-	glfwSetKeyCallback(window, key_callback);
+	glfwSetKeyCallback(window, vrmain->inputHandler->keyCallback);
 
 	//Initialize GLEW  
 	GLenum err = glewInit();
@@ -103,8 +97,32 @@ int main(void)
 	{
 		//Clear color buffer  
 		glClear(GL_COLOR_BUFFER_BIT);
-		
 
+		float points[] = {
+			0.0f, 0.5f, 0.0f,
+			0.5f, -0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f
+		};
+
+		GLuint vbo = 0;
+		glGenBuffers(1, &vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), points, GL_STATIC_DRAW);
+
+		GLuint vao = 0;
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+		glBindVertexArray(vao);
+		// draw points 0-3 from the currently bound VAO with current in-use shader
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		// update other events like input handling 
+		glfwPollEvents();
+		// put the stuff we've been drawing onto the display
+		glfwSwapBuffers(window);
 		
 
 
