@@ -72,15 +72,18 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(ProjectDir)..\..\LibOVR\Lib\Win32\VS2013;$(ProjectDir)..\glew-1.11.0\lib\Release\Win32;$(ProjectDir)..\glfw-3.0.4.bin.WIN32\lib-msvc120;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;ws2_32.lib;libovr.lib;libovrd.lib;opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="OculusHandler.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="UserAvatar.h" />
     <ClInclude Include="VRmain.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="OculusHandler.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="UserAvatar.cpp" />
