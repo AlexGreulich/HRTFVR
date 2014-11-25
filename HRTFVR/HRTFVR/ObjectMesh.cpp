@@ -4,9 +4,6 @@
 ObjectMesh::ObjectMesh()
 {
 	glGenVertexArrays(1, &vaoId);
-	glGenBuffers(1, &vboId);
-	std::cout << "vboId: " << vboId << std::endl;
-	std::cout << "vaoId: " << vaoId << std::endl;
 }
 
 GLuint ObjectMesh::getVaoId(){
@@ -84,19 +81,13 @@ void ObjectMesh::addTexture(glm::vec2 texture){
  */
 void ObjectMesh::allocateBuffers(){
 
+	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	
-	// vertices.size -> number of vectors, 4 -> x,y,z,w 
-	// &vertices[0] -> pointer to first vector element
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * 4 * sizeof(glm::vec4), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 12, &vertices, GL_STATIC_DRAW);
 
-	glBindVertexArray(vaoId);
-	
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	glBindVertexArray(vaoId);
+	glGenBuffers(1, &iboId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
+	glBufferData(GL_ARRAY_BUFFER, 12, &indices, GL_STATIC_DRAW);
 
 }
 

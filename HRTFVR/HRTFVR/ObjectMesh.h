@@ -45,15 +45,17 @@ public:
 	const int ATTRIBUTE_VERTEX = 0;
 	const int ATTRIBUTE_NORMALS = 1;
 	const int ATTRIBUTE_FACES = 2;
-
-private: 
 	GLuint vboId = 0;
 	GLuint vaoId = 0;
-	int indicesId = 0;
-	int textureId = 0;
+	GLuint iboId = 0;
+	GLuint indicesId = 0;
+	GLuint textureId = 0;
 	string name = "";
+private: 
+	
 
 	vector<glm::vec4> vertices;
+	vector<GLuint> indices;
 	vector<glm::vec3> normals;
 	vector<glm::vec2> textures;
 	vector<GLushort> faces;

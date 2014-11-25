@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_DEPRECATE
+
 #include "ObjLoader.h"
 #include <Windows.h>
 #include <stdio.h>
@@ -9,7 +11,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-
+#include <stdint.h>
+#include <stdlib.h>
 /*
  * ObjLoader loads .obj files
  */
@@ -17,6 +20,8 @@ using namespace std;
 
 ObjLoader::ObjLoader()
 {
+	meshMap;
+	textureMap;
 }	
 
 void ObjLoader::processFiles(){
@@ -25,7 +30,7 @@ void ObjLoader::processFiles(){
 	cout << "process files";
 	currentDirectory = getBaseDirectory();
 	resourcePath = currentDirectory + "Resources\\";
-	resourceSearchString = resourcePath + "*.obj";
+	resourceSearchString = resourcePath + "*";
 
 	cout << "resource path: " << resourceSearchString << endl;
 
@@ -44,14 +49,33 @@ void ObjLoader::processFiles(){
 }
 
 void ObjLoader::processFile( const char* filename ){
+	string fn = string(filename);
+	string ending = fn.substr(fn.find_last_of(".") + 1);
 
-	ObjectMesh *obj = new ObjectMesh();
-	obj->setName( string(filename) );
+	//int length = fn.length;
+	
+	string beginning = fn.substr(0, fn.find_last_of(".")+1);
 
-	parseFile(filename, obj);
+	if (ending == "obj"){
+		ObjectMesh *obj = new ObjectMesh();
+		obj->setName( string(filename) );
+	
+		parseFile(filename, obj);
 
-	obj->allocateBuffers();
-	meshMap[ obj->getName() ] = obj->getVboId();
+		obj->allocateBuffers();
+		meshMap[ obj->getName() ] = obj->getVboId();
+		//string z = obj->getName();
+		textureMap[ obj->getName() ]= parseTexture(beginning.append(".png"));
+	}
+	
+	
+	else if(ending =="png" ){
+		//parseTexture();
+		
+	}
+
+
+
 
 	//std::cout << "VBO: " << obj->getName() << " : " << obj->getVboId() << endl;
 
@@ -113,6 +137,53 @@ void ObjLoader::parseFile( const char* filename, ObjectMesh *obj ){
 	}
 }
 
+GLuint ObjLoader::parseTexture(string filename){
+	GLuint texture;
+
+	int width, height;
+
+	unsigned char * data;
+
+	FILE * file;
+
+	fopen_s(&file, filename.c_str(), "rb");
+
+	if (file == NULL){ return 0; };
+	width = 1024;
+	height = 512;
+	data = (unsigned char *)malloc(width * height * 3);
+	//int size = fseek(file,);
+	fread(data, width * height * 3, 1, file);
+	fclose(file);
+
+	for (int i = 0; i < width * height; ++i)
+	{
+		int index = i * 3;
+		unsigned char B, R;
+		B = data[index];
+		R = data[index + 2];
+
+		data[index] = R;
+		data[index + 2] = B;
+
+	}
+
+
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+	free(data);
+
+	return texture;
+}
+
 string ObjLoader::getBaseDirectory(){
 	char buffer[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
@@ -121,7 +192,16 @@ string ObjLoader::getBaseDirectory(){
 	return string(buffer).substr(0, pos) + "\\..\\";
 }
 
+GLuint ObjLoader::getMeshByName(string filename ){
+	unordered_map<string, GLuint>::iterator i = meshMap.find(filename);
+	return i->second;//textureMap[filename];
+	//return meshMap[filename];
+}
 
+GLuint ObjLoader::getTexByName(string filename){
+	unordered_map<string, GLuint>::iterator i = textureMap.find(filename);
+	return i->second;//textureMap[filename];
+}
 ObjLoader::~ObjLoader()
 {
 

@@ -1,6 +1,6 @@
 #include "SceneManager.h"
 #include <vector>
-
+#include "Entity.h"
 using namespace std;
 
 /*
@@ -8,23 +8,22 @@ Load models, populate scene and update graph every frame
 */
 
 
-vector<Entity> sceneObjects;
+vector<Entity*> sceneObjects;
 
 SceneManager::SceneManager()
 {
-	objLoader = new ObjLoader();
+	
+	Entity *e = new Entity();
+	sceneObjects.push_back(e);
 }
 
-void SceneManager::loadObjFiles(){
-	objLoader->processFiles();
-}
 
 SceneManager::~SceneManager()
 {
 }
 
 void SceneManager::renderScene(){
-	for (Entity e : sceneObjects){
-		//render
+	for (Entity *e : sceneObjects){
+		
 	}
 };

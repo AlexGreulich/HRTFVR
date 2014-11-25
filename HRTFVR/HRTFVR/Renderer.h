@@ -4,15 +4,30 @@
 #include <GLFW/glfw3.h>
 #include <glm.hpp>
 #include <gtc/constants.hpp> // glm constants
+#include <gtc/type_ptr.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtx/reciprocal.hpp>
+#include <math.h>
+#include <vector>
+#include "ShaderSetup.h"
+#include "ObjLoader.h"
 
 using namespace glm;
+
 class Renderer
 {
 public:
-	Renderer();
+	Renderer(GLuint w, GLuint h);
 	~Renderer();
+	//void uploadMatrix(vector<float> &matrix);
 
+	void destroyGL();
+
+	void render(string meshHandle);
+	ObjLoader* loader;
 private:
+
+	ShaderSetup* shaders;
 	float fieldOfView;
 	float aspectRatio;
 	float near_plane;
@@ -20,11 +35,19 @@ private:
 
 	float y_scale;
 	float x_scale;
-	float frustum_length = far_plane - near_plane;
+	float frustum_length;
+		
+	float viewRatio;
 
-	mat4 projectionMatrix, viewMatrix, modelMatrix;
-	float viewRatio;// = (float)tan(radians((pi() / (180.0f / fieldOfView) / 2.0f)));
+	vec3 avatarPosition;
+	vec3 avatarDirection;
+	mat4 projectionMatrix;
+	mat4 viewMatrix;
+	mat4 modelMatrix;
 
-	vec3 avatarPosition, avatarDirection;
+	void initOpenGL(int w, int h);
+	void setupMatrices();
+	void calcAndUploadViewMatrix();
+	void calcAndUploadModelMatrix();
 };
 

@@ -1,27 +1,52 @@
 #include "Renderer.h"
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+//#include <gtc/constants.hpp> // glm constants
+//#include <gtx/reciprocal.hpp>
+#include <math.h>
+#include <vector>
+#include <iostream>
 
 using namespace std;
+using namespace glm;
 
-Renderer::Renderer()
+
+Renderer::Renderer(GLuint w, GLuint h)
+	: projectionMatrix(mat4(0.0)),
+	viewMatrix(mat4(0.0)),
+	modelMatrix(mat4(0.0)),
+	fieldOfView(60.0f),
+	aspectRatio(w / h),
+	near_plane(0.1f),
+	far_plane(1000.0f),
+	y_scale(tan(M_PI_2 - (radians(fieldOfView / 2)))),
+	x_scale(y_scale / aspectRatio),
+	frustum_length(far_plane - near_plane),
+	viewRatio(tan(radians((M_PI / (180.0 / fieldOfView) / 2.0))))
 {
-
+	shaders = new ShaderSetup();
+	initOpenGL(w, h);
+	setupMatrices();
+	loader = new ObjLoader();
 }
 
 
 Renderer::~Renderer()
 {
-	
+	destroyGL();
 }
 
 
-void initOpenGL(int w, int h){
+void Renderer::initOpenGL(int w, int h){
+
 	glShadeModel(GL_SMOOTH);
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
-	
+
 	glViewport(0, 0, w, h);
 	glDepthFunc(GL_LEQUAL);
 	//glEnable(GL_CULL_FACE);
@@ -29,159 +54,70 @@ void initOpenGL(int w, int h){
 	//glCullFace(GL_FRONT);
 }
 
-void setupMatrices(){
-	/*projectionMatrix = new mat4();
-	projectionMatrix.m11 = y_scale;
-	projectionMatrix.m22 = -((far_plane + near_plane) / frustum_length);
-	projectionMatrix.m23 = -1f;
-	projectionMatrix.m32 = -((2 * near_plane * far_plane) / frustum_length);
-	projectionMatrix.m33 = 0f;
-
-	// Setup view matrix
-	viewMatrix = new Matrix4f();
-
-	// Setup model matrix
-	modelMatrix = new Matrix4f();
-
-	// setup normalmatrix
-	normalMatrix = new Matrix3f();
-
-	// Create a FloatBuffer with the proper size to store our matrices later
-	matrix44Buffer = BufferUtils.createFloatBuffer(16);
-	matrix33Buffer = BufferUtils.createFloatBuffer(9);
-
-	// store ProjectionMatrix once
-	glUseProgram(shaders.getShaderProgram());
-
-	projectionMatrix.store(matrix44Buffer);
-	matrix44Buffer.flip();
-	glUniformMatrix4(shaders.getProjectionMatLoc(), false, matrix44Buffer);
-
-	glUseProgram(0);*/
-}
-
-void destroyGL(){
+void Renderer::setupMatrices(){
+	projectionMatrix = perspective(fieldOfView, aspectRatio, near_plane, far_plane);
+	cout << "shaderprogramID: " << shaders->getShaderProgram() << endl;
+	glUseProgram(shaders->shaderProgram);
+	glUniformMatrix4fv(shaders->getProjMatrixLoc(), 1, GL_FALSE, value_ptr(projectionMatrix));
+	glUseProgram(0);
+	calcAndUploadModelMatrix();
+	calcAndUploadViewMatrix();
 
 }
 
-class ShaderSetup{
+void Renderer::calcAndUploadModelMatrix(){
+	modelMatrix = mat4(0.0);
+	glUseProgram(shaders->getShaderProgram());
+	glUniformMatrix4fv(shaders->getModelMatrixLoc(), 1, GL_FALSE, value_ptr(modelMatrix));
+	glUseProgram(0);
+}
+
+void Renderer::calcAndUploadViewMatrix(){
+	viewMatrix = lookAt(
+		vec3(0.0, 2.0, 2.0), //eye
+		vec3(0.0, 0.0, 0.0), //center
+		vec3(0.0, 1.0, 0.0));	//up
+	glUseProgram(shaders->getShaderProgram());
+	glUniformMatrix4fv(shaders->getViewMatrixLoc(), 1, GL_FALSE, value_ptr(viewMatrix));
+	glUseProgram(0);
+}
+
+void Renderer::destroyGL(){
+
+}
+
+void Renderer::render(string meshHandle){
+/*	//GLuint meshID = ;
+	//GLuint texID = ;
+	ObjectMesh temp = loader->getMeshByName(meshHandle);
+
+	glUseProgram(shaders->getShaderProgram());
+	//	gettextureID		glBindTexture(GL_TEXTURE_2D, temp.get);
+		glBindVertexArray(temp.getVaoId);
+			glEnableVertexAttribArray(0);
+			glEnableVertexAttribArray(1);
+			glEnableVertexArrayAttrib	//???????????
+			//get IBO
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, temp.get);
+				glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, offset);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		
+			glDisableVertexAttribArray(0);
+			glDisableVertexAttribArray(1);
+	
+		glBindVertexArray(0);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glUseProgram(0);
 
 
-	int vertexShader = 0;
-	int fragmentShader = 0;
-	int shaderProgram = 0;
-
-	int projectionMatrixLocation = 0;
-	int viewMatrixLocation = 0;
-	int modelMatrixLocation = 0;
-
-	int texLocation = 0;
-
-	int avatarPositionLocation = 0;
-	int avatarViewLocation = 0;
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
-	void init(){
+	
+	glFlush();
+	
 
-		const char* vert = "loadMe";//openShaderSource(new File ("src/Resources/shader/PerPixelNormal.vert"));
-		const char* frag = "loadMe";//openShaderSource(new File ("src / Resources / shader / PerPixelNormal.frag"));
-
-		//Vertex shader
-		vertexShader = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexShader, 1, &vert, NULL);
-		glCompileShader(vertexShader);
-
-		/*
-		String vertexShaderErrorLog = glGetShaderInfoLog(vertexShader, 65536);
-		if (vertexShaderErrorLog.length() != 0) {System.err.println("Vertex shader compile log: \n" + vertexShaderErrorLog);}
-		*/
-
-		//Fragment shader
-		fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragmentShader, 1, &frag, NULL);
-		glCompileShader(fragmentShader);
-
-		/*
-		String fragmentShaderErrorLog = glGetShaderInfoLog(fragmentShader, 65536);
-		if (fragmentShaderErrorLog.length() != 0) {System.err.println("Fragment shader compile log: \n" + fragmentShaderErrorLog);}
-
-		*/
-		//Shader program
-		shaderProgram = glCreateProgram();
-		glAttachShader(shaderProgram, vertexShader);
-		glAttachShader(shaderProgram, fragmentShader);
-
-		glBindAttribLocation(shaderProgram, 0, "in_Position");
-
-		// Texture -> attribute 1
-		glBindAttribLocation(shaderProgram, 1, "in_TextureCoord");
-
-		glLinkProgram(shaderProgram);
-		glValidateProgram(shaderProgram);
-
-		glDetachShader(shaderProgram, vertexShader);
-		glDetachShader(shaderProgram, fragmentShader);
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
-
-		// Get uniform locations
-		projectionMatrixLocation = glGetUniformLocation(shaderProgram, "projectionMatrix");
-		viewMatrixLocation = glGetUniformLocation(shaderProgram, "viewMatrix");
-		modelMatrixLocation = glGetUniformLocation(shaderProgram, "modelMatrix");
-
-		avatarPositionLocation = glGetUniformLocation(shaderProgram, "avatarPos");
-		avatarViewLocation = glGetUniformLocation(shaderProgram, "avatarDir");
-
-		texLocation = glGetUniformLocation(shaderProgram, "tex0");
-
-
-		glUseProgram(shaderProgram);
-		glUniform1i(texLocation, 0);
-
-		glUseProgram(0);
-
-		/*
-		String log = glGetProgramInfoLog(shaderProgram, 65536);
-		if (log.length() != 0) {
-		System.err.println("Program link log:\n" + log);
-		}
-		*/
-	}
-
-	void destroyShaders(){
-		glDetachShader(shaderProgram, vertexShader);
-		glDetachShader(shaderProgram, fragmentShader);
-
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
-		glDeleteProgram(shaderProgram);
-	}
-
-	// Getter
-	int getProjMatrixLoc(){
-		return projectionMatrixLocation;
-	}
-	int getModelMatrixLoc(){
-		return modelMatrixLocation;
-	}
-	int getViewMatrixLoc(){
-		return viewMatrixLocation;
-	}
-	int getTexLoc(){
-		return texLocation;
-	}
-	int getAvatarPosLoc(){
-		return avatarPositionLocation;
-	}
-	int getAvatarVieLoc(){
-		return avatarViewLocation;
-	}
-
-	// There should be separate *.vert and *.frag shader files, but for now just hardcode those:
-	const char* getVertexShader(){
-		return "";
-	}
-	const char* getFragmentShader(){
-		return "";
-	}
-};
+*/
+}
+;

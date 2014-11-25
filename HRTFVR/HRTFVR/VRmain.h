@@ -1,24 +1,24 @@
+
 #pragma once
 
 #include "OculusHandler.h"
 #include "SceneManager.h"
 #include "Renderer.h"
-#include "InputHandler.h"
+
 class VRmain{
 public:
-	VRmain();
+	explicit VRmain();
 	~VRmain();
 	OculusHandler* oculus;
 	SceneManager* sceneManager;
-	Renderer* renderer;
-	InputHandler* inputHandler;
+	Renderer* renderer; void init();
 
-private: 
+	
+private:
 	bool useRift;
-	
-	void init();
+
 	void destroyAndCleanse();
-	
+
 
 };
 
