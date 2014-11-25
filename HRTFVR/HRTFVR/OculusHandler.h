@@ -1,4 +1,8 @@
 #pragma once
+
+//include Oculus SDK
+#include "OVR_CAPI.h"
+
 class OculusHandler
 {
 public:
