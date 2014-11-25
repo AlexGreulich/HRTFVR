@@ -29,6 +29,7 @@ Renderer::Renderer(GLuint w, GLuint h)
 	initOpenGL(w, h);
 	setupMatrices();
 	loader = new ObjLoader();
+	loader->processFiles();
 }
 
 

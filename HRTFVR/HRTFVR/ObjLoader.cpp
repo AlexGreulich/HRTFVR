@@ -13,6 +13,7 @@
 #include <string>
 #include <stdint.h>
 #include <stdlib.h>
+
 /*
  * ObjLoader loads .obj files
  */
@@ -63,22 +64,15 @@ void ObjLoader::processFile( const char* filename ){
 		parseFile(filename, obj);
 
 		obj->allocateBuffers();
-		meshMap[ obj->getName() ] = obj->getVboId();
+
+		meshMap[obj->getName()] = obj;
 		//string z = obj->getName();
 		textureMap[ obj->getName() ]= parseTexture(beginning.append(".png"));
 	}
-	
-	
 	else if(ending =="png" ){
 		//parseTexture();
 		
 	}
-
-
-
-
-	//std::cout << "VBO: " << obj->getName() << " : " << obj->getVboId() << endl;
-
 
 }
 
@@ -105,7 +99,7 @@ void ObjLoader::parseFile( const char* filename, ObjectMesh *obj ){
 			v.w = 1.0f;
 			obj->addVertex(v);
 		}
-		/*else if (line.substr(0, 2) == "vn"){
+		else if (line.substr(0, 2) == "vn"){
 			istringstream s(line.substr(2));
 			glm::vec3 norm;
 			s >> norm.x;
@@ -116,24 +110,57 @@ void ObjLoader::parseFile( const char* filename, ObjectMesh *obj ){
 		}
 		else if (line.substr(0, 2) == "f "){
 			istringstream s(line.substr(2));
-			GLushort a, b, c;
+			string a, b, c;
+			glm::vec3 av, bv, cv;
+
 			s >> a;
 			s >> b;
 			s >> c;
-			a--;
-			b--;
-			c--;
-			obj->addFace(a);
-			obj->addFace(b);
-			obj->addFace(c);
+
+			switch ( std::count(a.begin(), a.end(), '/') )
+			{
+			case 0:
+				sscanf(a.c_str(), "%f", &av.x);
+				sscanf(b.c_str(), "%f", &bv.x);
+				sscanf(c.c_str(), "%f", &cv.x);
+				break;
+			case 1:
+				sscanf(a.c_str(), "%f/%f", &av.x, &av.z);
+				sscanf(b.c_str(), "%f/%f", &bv.x, &bv.z);
+				sscanf(c.c_str(), "%f/%f", &cv.x, &cv.z);
+				break;
+			case 2:
+				sscanf(a.c_str(), "%f/%f/%f", &av.x, &av.y, &av.z);
+				sscanf(b.c_str(), "%f/%f/%f", &bv.x, &bv.y, &bv.z);
+				sscanf(c.c_str(), "%f/%f/%f", &cv.x, &cv.y, &cv.z);
+				break;
+			}
+
+			// decrement values; they're 1-indexed
+			av.x--;
+			av.y--;
+			av.z--;
+
+			bv.x--;
+			bv.y--;
+			bv.z--;
+
+			cv.x--;
+			cv.y--;
+			cv.z--;
+
+			obj->addFace(av);
+			obj->addFace(bv);
+			obj->addFace(cv);
+
 		}
-		else if (line.substr(2) == "vt"){
+		else if (line.substr(0, 2) == "vt"){
 			istringstream s(line.substr(2));
 			glm::vec2 texture;
 			s >> texture.x;
 			s >> texture.y;
 			obj->addTexture(texture);
-		}*/
+		}
 	}
 }
 
@@ -192,15 +219,12 @@ string ObjLoader::getBaseDirectory(){
 	return string(buffer).substr(0, pos) + "\\..\\";
 }
 
-GLuint ObjLoader::getMeshByName(string filename ){
-	unordered_map<string, GLuint>::iterator i = meshMap.find(filename);
-	return i->second;//textureMap[filename];
-	//return meshMap[filename];
+ObjectMesh* ObjLoader::getMeshByName(string filename ){
+	return meshMap[filename];
 }
 
 GLuint ObjLoader::getTexByName(string filename){
-	unordered_map<string, GLuint>::iterator i = textureMap.find(filename);
-	return i->second;//textureMap[filename];
+	return textureMap[filename];
 }
 ObjLoader::~ObjLoader()
 {

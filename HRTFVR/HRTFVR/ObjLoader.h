@@ -5,7 +5,7 @@
 #include <vector>
 #include <glm.hpp>
 #include <GL\glew.h>
-#include <unordered_map>
+#include <map>
 #include "ObjectMesh.h"
 
 using namespace std;
@@ -17,10 +17,10 @@ public:
 	static string getBaseDirectory();
 	void processFiles();
 	~ObjLoader();
-	unordered_map<string, ObjectMesh> meshMap;
-	ObjectMesh getMeshByName(string name);
+	map<string, ObjectMesh*> meshMap;
+	ObjectMesh* getMeshByName(string name);
 
-	unordered_map<string, GLuint> textureMap;
+	map<string, GLuint> textureMap;
 	GLuint getTexByName(string name);
 
 private:

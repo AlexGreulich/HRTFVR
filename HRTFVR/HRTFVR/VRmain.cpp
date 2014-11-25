@@ -36,14 +36,11 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 void VRmain::init() {
 	// If no Rift is connected, useRift is false
 	useRift = oculus->initialize();
-	
-
 	sceneManager = new SceneManager();
 	renderer = new Renderer(windowWidth, windowHeight);
 	// On construction create new OVR- Handler, needs to be destroyed
 	oculus = new OculusHandler();
-	//std::cout << "init";
-	loader->processFiles();
+	std::cout << "init";
 }
 
 void VRmain::destroyAndCleanse(){
