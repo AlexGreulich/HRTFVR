@@ -35,11 +35,12 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 void VRmain::init() {
 	// If no Rift is connected, useRift is false
+	oculus = new OculusHandler();
 	useRift = oculus->initialize();
 	sceneManager = new SceneManager();
 	renderer = new Renderer(windowWidth, windowHeight);
 	// On construction create new OVR- Handler, needs to be destroyed
-	oculus = new OculusHandler();
+	
 	std::cout << "init";
 }
 
@@ -110,7 +111,7 @@ int main(void)
 
 		//GLuint a = vrmain->loader->getMeshByName("cube.obj");
 		vrmain->renderer->render("cube.obj"); //renderer.render(loader);
-
+		vrmain->oculus->updateTracking();
 		/*
 
 		RENDER AND AUDIO Code GOES HERE
