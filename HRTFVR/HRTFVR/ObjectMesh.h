@@ -18,9 +18,11 @@ public:
 
 	GLuint getVaoId();
 	GLuint getVboId();
+	GLuint getIboId();
 
 	// vertices
 	void setVertices(vector<glm::vec4> vertices);
+	GLuint getVerticesCount();
 	vector<glm::vec4> getVertices();
 	void addVertex(glm::vec4 vertex);
 
@@ -36,6 +38,8 @@ public:
 	
 	// textures
 	void setTextures(vector<glm::vec2> textures);
+	void setTextureId(GLuint id);
+	GLuint getTextureId();
 	vector<glm::vec2> getTextures();
 	void addTexture(glm::vec2 texture);
 	
@@ -45,27 +49,37 @@ public:
 
 	void allocateBuffers();
 
-	void assign();
-
 	const int VERTEX_ARRAY_POSITION = 0;
 	const int NORMAL_ARRAY_POSITION = 1;
 	const int TEXTURE_ARRAY_POSITION = 2;
 
+
+private: 
+
+	string name = "";
+
 	GLuint vboId = 0;
 	GLuint vaoId = 0;
 	GLuint iboId = 0;
+
 	GLuint indicesId = 0;
 	GLuint textureId = 0;
-	string name = "";
-private: 
-	void vbPushVertex(glm::vec3 &face, int i);
-	void vbPushNormal(glm::vec3 &face, int i);
-	void vbPushTexture(glm::vec3 &face, int i);
+
+	// parsed vert, norm, tex & faces from .obj
 	vector<glm::vec4> vertices;
 	vector<glm::vec3> normals;
 	vector<glm::vec2> textures;
-	vector<GLfloat> indices;
 	vector<glm::vec3> faces;
+
+	// vertex- & index buffer
+	vector<GLfloat> vertexBuffer;
+	vector<GLfloat> indexBuffer;
+
+	// shortcuts
+	GLuint verticesCount;
+	GLuint normalsCount;
+	GLuint texturesCount;
+	GLuint facesCount;
 	
 };
 

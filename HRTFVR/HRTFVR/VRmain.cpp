@@ -110,7 +110,7 @@ int main(void)
 
 
 		//GLuint a = vrmain->loader->getMeshByName("cube.obj");
-		vrmain->renderer->render("cube.obj"); //renderer.render(loader);
+		vrmain->renderer->render("cube-texture.obj"); //renderer.render(loader);
 		vrmain->oculus->updateTracking();
 		/*
 

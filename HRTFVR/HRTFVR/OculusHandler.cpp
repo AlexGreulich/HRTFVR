@@ -59,7 +59,7 @@ bool OculusHandler::initialize(){
 	}
 	else{
 		// we can use a simulated HMD to test and debug tracking and render code
-		hmd = ovrHmd_CreateDebug(ovrHmd_DK2);
+		//hmd = ovrHmd_CreateDebug(ovrHmd_DK2);
 
 		// set up fake sensor data here
 	}
@@ -67,23 +67,24 @@ bool OculusHandler::initialize(){
 }
 
 void OculusHandler::updateTracking(){
+	if (hmd){
+		frameTiming = ovrHmd_BeginFrameTiming(hmd, 0);
 
-	frameTiming = ovrHmd_BeginFrameTiming(hmd, 0);
+		trackingState = ovrHmd_GetTrackingState(hmd, ovr_GetTimeInSeconds());
+		if (trackingState.StatusFlags & (ovrStatus_OrientationTracked | ovrStatus_PositionTracked)); {
+			// get trackingpose here
 
-	trackingState = ovrHmd_GetTrackingState(hmd, ovr_GetTimeInSeconds());
-	if (trackingState.StatusFlags & (ovrStatus_OrientationTracked | ovrStatus_PositionTracked)); {
-		// get trackingpose here
-	
-		Posef pose = trackingState.HeadPose.ThePose;
-		pose.Rotation.GetEulerAngles<Axis_Y, Axis_X, Axis_Z>(&yaw, &pitch, &roll);
+			Posef pose = trackingState.HeadPose.ThePose;
+			pose.Rotation.GetEulerAngles<Axis_Y, Axis_X, Axis_Z>(&yaw, &pitch, &roll);
 
-		
-		cout << "yaw: " << RadToDegree(yaw) << endl;
-		cout << "pitch: " << RadToDegree(pitch) << endl;
-		cout << "roll: " << RadToDegree(roll) << endl;
 
+			cout << "yaw: " << RadToDegree(yaw) << endl;
+			cout << "pitch: " << RadToDegree(pitch) << endl;
+			cout << "roll: " << RadToDegree(roll) << endl;
+
+		}
+		ovrHmd_EndFrameTiming(hmd);
 	}
-	ovrHmd_EndFrameTiming(hmd);
 }
 
 void OculusHandler::destroyHMD(){

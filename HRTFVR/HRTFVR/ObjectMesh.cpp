@@ -1,10 +1,10 @@
 #include "ObjectMesh.h"
 #include <iostream>
 
+using namespace std;
+
 ObjectMesh::ObjectMesh()
-{
-	glGenVertexArrays(1, &vaoId);
-}
+{}
 
 GLuint ObjectMesh::getVaoId(){
 	return vaoId;
@@ -14,11 +14,19 @@ GLuint ObjectMesh::getVboId(){
 	return vboId;
 }
 
+GLuint ObjectMesh::getIboId(){
+	return iboId;
+}
+
 /**
 * VERTICES
 */
 void ObjectMesh::setVertices(vector<glm::vec4> vertices){
 	ObjectMesh::vertices = vertices;
+}
+
+GLuint ObjectMesh::getVerticesCount(){
+	return ObjectMesh::verticesCount;
 }
 
 vector<glm::vec4> ObjectMesh::getVertices(){
@@ -66,6 +74,14 @@ void ObjectMesh::setTextures(vector<glm::vec2> textures){
 	ObjectMesh::textures = textures;
 }
 
+void ObjectMesh::setTextureId(GLuint id){
+	ObjectMesh::textureId = id;
+}
+
+GLuint ObjectMesh::getTextureId(){
+	return ObjectMesh::textureId;
+}
+
 vector<glm::vec2> ObjectMesh::getTextures(){
 	return ObjectMesh::textures;
 }
@@ -79,14 +95,15 @@ void ObjectMesh::addTexture(glm::vec2 texture){
  */
 void ObjectMesh::allocateBuffers(){
 	
-	int bufferSize = faces.size() * 4 * 3 * 2;
-	std::vector<GLfloat> vertexBuffer;
-
-	bool hasFace = false;
-	bool hasTexture = false;
+	cout << "allocating buffers for " << name << endl;
 	
-	// face-vector:
-	// one vector represents one slash-delimited value:
+	verticesCount = vertices.size();
+	normalsCount = normals.size();
+	texturesCount = textures.size();
+	facesCount = faces.size();
+
+	// iterate over face-vector:
+	// one vector (one iteration) represents one slash-delimited value from the .obj file:
 	//    i = index, t = texture, n = normal
 	//    i
 	//    i/t
@@ -105,8 +122,21 @@ void ObjectMesh::allocateBuffers(){
 			std::cout << "corrupt vertex index at " << name;
 		}
 
-		if ( face.y >= 0 ){
-			glm::vec3 n1 = normals.at(face.y);
+		if (face.y >= 0){
+
+			glm::vec2 t1 = textures.at(face.y);
+			vertexBuffer.push_back(t1.x);
+			vertexBuffer.push_back(t1.y);
+		}
+		else{
+			std::cout << "no textures found in " << name;
+			glm::vec2 t1;
+			vertexBuffer.push_back(t1.x);
+			vertexBuffer.push_back(t1.y);
+		}
+
+		if ( face.z >= 0 ){
+			glm::vec3 n1 = normals.at(face.z);
 			vertexBuffer.push_back(n1.x);
 			vertexBuffer.push_back(n1.y);
 			vertexBuffer.push_back(n1.z);
@@ -118,34 +148,39 @@ void ObjectMesh::allocateBuffers(){
 			vertexBuffer.push_back(n1.y);
 			vertexBuffer.push_back(n1.z);
 		}
-
 		
-		if (face.z >= 0){
-			std::cout << "no textures found in " << name;
-			glm::vec2 t1 = textures.at(face.z);
-			vertexBuffer.push_back(t1.x);
-			vertexBuffer.push_back(t1.y);
-		}
-		else{
-			glm::vec2 t1;
-			vertexBuffer.push_back(t1.x);
-			vertexBuffer.push_back(t1.y);
-		}
-
+		indexBuffer.push_back(i);
 	}
 
+	// generate & bind this VAO
+	glGenVertexArrays(1, &vaoId);
+	glBindVertexArray(vaoId);
 
+	// gen VBO & write into vbo
 	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
 	glBufferData(GL_ARRAY_BUFFER, 12, &vertexBuffer, GL_STATIC_DRAW);
+	
 	glVertexAttribPointer(VERTEX_ARRAY_POSITION, 4, GL_FLOAT, GL_FALSE, 36, (void*)0);
 	glVertexAttribPointer(NORMAL_ARRAY_POSITION, 3, GL_FLOAT, GL_FALSE, 36, (void*)16);
 	glVertexAttribPointer(TEXTURE_ARRAY_POSITION, 2, GL_FLOAT, GL_FALSE, 36, (void*)28);
 
+	// reset VBO & VAO
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+	// create ibo
 	glGenBuffers(1, &iboId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
-	glBufferData(GL_ARRAY_BUFFER, 12, &indices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 12, &indexBuffer, GL_STATIC_DRAW);
 
+	// reset ibo
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	cout << "vaoID: " << vaoId << endl;
+	cout << "vboID: " << vboId << endl;
+	cout << "iboID: " << iboId << endl;
+	
 }
 
 /**
@@ -156,10 +191,6 @@ void ObjectMesh::setName(string name){
 }
 string ObjectMesh::getName(){
 	return ObjectMesh::name;
-}
-
-void ObjectMesh::assign(){
-	//std::cout << "assigned.";
 }
 
 ObjectMesh::~ObjectMesh()

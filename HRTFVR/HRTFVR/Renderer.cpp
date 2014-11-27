@@ -88,25 +88,29 @@ void Renderer::destroyGL(){
 }
 
 void Renderer::render(string meshHandle){
-/*	//GLuint meshID = ;
+	//GLuint meshID = ;
 	//GLuint texID = ;
-	ObjectMesh temp = loader->getMeshByName(meshHandle);
-
+	ObjectMesh *mesh = loader->getMeshByName(meshHandle);
+	if (mesh == NULL){
+		cout << "could not find mesh with handle " << meshHandle;
+		throw;
+	}
 	glUseProgram(shaders->getShaderProgram());
-	//	gettextureID		glBindTexture(GL_TEXTURE_2D, temp.get);
-		glBindVertexArray(temp.getVaoId);
-			glEnableVertexAttribArray(0);
-			glEnableVertexAttribArray(1);
-			glEnableVertexArrayAttrib	//???????????
-			//get IBO
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, temp.get);
-				glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, offset);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-		
-			glDisableVertexAttribArray(0);
-			glDisableVertexAttribArray(1);
+	glBindTexture(GL_TEXTURE_2D, mesh->getTextureId());
+	glBindVertexArray(mesh->getVaoId());
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
+		//get IBO
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIboId() );
+			glDrawElements(GL_TRIANGLES, mesh->getVerticesCount(), GL_UNSIGNED_SHORT, (void*)0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
 	
-		glBindVertexArray(0);
+	glBindVertexArray(0);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
@@ -119,6 +123,6 @@ void Renderer::render(string meshHandle){
 	glFlush();
 	
 
-*/
+
 }
 ;

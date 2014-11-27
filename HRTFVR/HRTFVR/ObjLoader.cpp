@@ -66,12 +66,7 @@ void ObjLoader::processFile( const char* filename ){
 		obj->allocateBuffers();
 
 		meshMap[obj->getName()] = obj;
-		//string z = obj->getName();
-		textureMap[ obj->getName() ]= parseTexture(beginning.append(".png"));
-	}
-	else if(ending =="png" ){
-		//parseTexture();
-		
+		obj->setTextureId(parseTexture(beginning.append("bmp")));
 	}
 
 }
@@ -166,16 +161,19 @@ void ObjLoader::parseFile( const char* filename, ObjectMesh *obj ){
 
 GLuint ObjLoader::parseTexture(string filename){
 	GLuint texture;
-
 	int width, height;
-
 	unsigned char * data;
-
 	FILE * file;
+	string filePath(resourcePath);
+	filePath.append(filename);
 
-	fopen_s(&file, filename.c_str(), "rb");
+	fopen_s(&file, filePath.c_str(), "rb");
 
-	if (file == NULL){ return 0; };
+	if (file == NULL){
+		cout << "Could not open texture file " << filename;
+		throw;
+		return 0;
+	};
 	width = 1024;
 	height = 512;
 	data = (unsigned char *)malloc(width * height * 3);
