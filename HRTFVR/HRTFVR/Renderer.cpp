@@ -91,10 +91,12 @@ void Renderer::render(string meshHandle){
 	//GLuint meshID = ;
 	//GLuint texID = ;
 	ObjectMesh *mesh = loader->getMeshByName(meshHandle);
+	
 	if (mesh == NULL){
 		cout << "could not find mesh with handle " << meshHandle;
 		throw;
 	}
+
 	glUseProgram(shaders->getShaderProgram());
 	glBindTexture(GL_TEXTURE_2D, mesh->getTextureId());
 	glBindVertexArray(mesh->getVaoId());
@@ -114,8 +116,6 @@ void Renderer::render(string meshHandle){
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUseProgram(0);
-
-
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glFlush();

@@ -1,7 +1,7 @@
 #include "VRmain.h"
 #include <GL/glew.h>  
 //#include <GL/glxew.h>
-#include <GLFW/glfw3.h>  
+#include <GLFW/glfw3.h>
 #include "InputHandler.h"
 #include <glm.hpp>
 #include <stdio.h>  
@@ -10,7 +10,6 @@
 
 const GLuint windowWidth = 800;
 const GLuint windowHeight = 600;
-
 
 VRmain::VRmain(){
 

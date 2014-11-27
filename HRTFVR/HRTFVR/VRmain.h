@@ -12,7 +12,7 @@ public:
 	OculusHandler* oculus;
 	SceneManager* sceneManager;
 	Renderer* renderer; void init();
-
+	void loadExtensions();
 	
 private:
 	bool useRift;

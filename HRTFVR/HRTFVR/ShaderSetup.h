@@ -7,6 +7,7 @@
 #include <gtx/reciprocal.hpp>
 #include <math.h>
 #include <vector>
+#include <string>
 
 // static const GLchar *vertexShader = {
 // 	"#version 150 core  uniform mat4 projectionMatrix; uniform mat4 viewMatrix; uniform mat4 modelMatrix; in vec4 in_Position; in vec2 in_TextureCoord; out vec2 pass_TextureCoord; void main(void) { 	//gl_Position = in_Position; gl_Position = projectionMatrix * viewMatrix * modelMatrix * in_Position; pass_TextureCoord = in_TextureCoord; }" };
@@ -20,8 +21,8 @@
 // 	"	out_Color = texture(texture_diffuse, pass_TextureCoord);"
 // 	"}" };
 
-static const GLchar *vertexShader = "vertex.vs";
-static const GLchar *fragmentShader = "fragment.fs";
+static const GLchar *vertexShader = "shader.vert";
+static const GLchar *fragmentShader = "shader.frag";
 
 class ShaderSetup
 {
@@ -38,7 +39,7 @@ public:
 	GLuint getAvatarPosLoc();
 	GLuint getAvatarViewLoc();
 	GLuint getShaderProgram();
-	const char* getShaderAsString(const char* filename);
+	std::string getShaderAsString(const char* filename);
 	GLuint shaderProgram;
 
 	static const char getVertexShader();
@@ -49,14 +50,14 @@ private:
 	GLuint fShader;
 
 
-	GLuint projectionMatrixLocation;
-	GLuint viewMatrixLocation;
-	GLuint modelMatrixLocation;
+	GLint projectionMatrixLocation;
+	GLint viewMatrixLocation;
+	GLint modelMatrixLocation;
 
-	GLuint texLocation;
+	GLint texLocation;
 
-	GLuint avatarPositionLocation;
-	GLuint avatarViewLocation;
+	GLint avatarPositionLocation;
+	GLint avatarViewLocation;
 
 
 };

@@ -42,6 +42,9 @@
     <ClInclude Include="ShaderSetup.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VRmain.cpp">
@@ -69,6 +72,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ShaderSetup.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

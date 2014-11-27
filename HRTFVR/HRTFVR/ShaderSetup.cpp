@@ -27,29 +27,39 @@ GLuint ShaderSetup::init(){
 		std::cout << "OpenGL Error: " << error << std::endl;
 	}
 
-	const char* vshader = getShaderAsString(vertexShader);
-
+	std::string vshader = getShaderAsString(vertexShader);
+	const GLchar *vsource = (const GLchar *)vshader.c_str();
+	
 	//Vertex shader
 	vShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vShader, 1, (const GLchar**)&vshader, NULL);
+	glShaderSource(vShader, 1, &vsource, NULL);
 	glCompileShader(vShader);
+
+	std::cout << vshader;
 
 	GLint vsCompiled;
 	glGetShaderiv(vShader, GL_COMPILE_STATUS, &vsCompiled);
 	if (vsCompiled){
-		std::cout << "Vertex shader compiled";
+		std::cout << "Vertex shader compiled" << std::endl;
 	}
+
 	/*
 	String vertexShaderErrorLog = glGetShaderInfoLog(vertexShader, 65536);
 	if (vertexShaderErrorLog.length() != 0) {System.err.println("Vertex shader compile log: \n" + vertexShaderErrorLog);}
 	*/
 
-	const char* fshader = getShaderAsString(vertexShader);
-
+	std::string fshader = getShaderAsString(vertexShader);
+	const GLchar *fsource = (const GLchar *)fshader.c_str();
 	//Fragment shader
 	fShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fShader, 1, (const GLchar**)&fshader, NULL);
+	glShaderSource(fShader, 1, &fsource, NULL);
 	glCompileShader(fShader);
+
+	GLint fsCompiled;
+	glGetShaderiv(fShader, GL_COMPILE_STATUS, &fsCompiled);
+	if (fsCompiled){
+		std::cout << "Fragment shader compiled" << std::endl;
+	}
 
 	/*
 	String fragmentShaderErrorLog = glGetShaderInfoLog(fragmentShader, 65536);
@@ -132,7 +142,7 @@ GLuint ShaderSetup::getShaderProgram(){
 	return shaderProgram;
 }
 
-const char* ShaderSetup::getShaderAsString(const char* filename){
+std::string ShaderSetup::getShaderAsString(const char* filename){
 	
 	// build path to filename
 	string base = ObjLoader::getBaseDirectory();
@@ -145,13 +155,9 @@ const char* ShaderSetup::getShaderAsString(const char* filename){
 		std::cout << "Cannot open " << shaderPath << std::endl;
 	}
 
-	string line;
-	string total;
+	std::string content((std::istreambuf_iterator<char>(in)),
+		(std::istreambuf_iterator<char>()));
 
-	while ( getline(in, line) ){
-		total.append(line);
-	}
-
-	return total.c_str();
+	return content;
 
 }

@@ -77,6 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="InputHandler.h" />
     <ClInclude Include="ObjectMesh.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="OculusHandler.h" />
@@ -88,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="ObjectMesh.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="OculusHandler.cpp" />

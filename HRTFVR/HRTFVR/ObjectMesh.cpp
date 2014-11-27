@@ -175,21 +175,22 @@ void ObjectMesh::allocateBuffers(){
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
 	glBufferData(GL_ARRAY_BUFFER, 12, &vertexBuffer, GL_STATIC_DRAW);
 	
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(VERTEX_ARRAY_POSITION, 4, GL_FLOAT, GL_FALSE, 36, (void*)0);
-	glVertexAttribPointer(NORMAL_ARRAY_POSITION, 3, GL_FLOAT, GL_FALSE, 36, (void*)16);
-	glVertexAttribPointer(TEXTURE_ARRAY_POSITION, 2, GL_FLOAT, GL_FALSE, 36, (void*)28);
 
-	// reset VBO & VAO
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(NORMAL_ARRAY_POSITION, 3, GL_FLOAT, GL_FALSE, 36, (void*)16);
+
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(TEXTURE_ARRAY_POSITION, 2, GL_FLOAT, GL_FALSE, 36, (void*)28);
 
 	// create ibo
 	glGenBuffers(1, &iboId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
 	glBufferData(GL_ARRAY_BUFFER, 12, &indexBuffer, GL_STATIC_DRAW);
 
-	// reset ibo
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	// reset VAO
+	glBindVertexArray(0);
 
 	cout << "vaoID: " << vaoId << endl;
 	cout << "vboID: " << vboId << endl;
