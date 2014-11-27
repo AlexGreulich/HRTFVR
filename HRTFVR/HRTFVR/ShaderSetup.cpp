@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stdlib.h>
 #include <string>
 
 ShaderSetup::ShaderSetup()
@@ -77,6 +78,28 @@ GLuint ShaderSetup::init(){
 	glBindAttribLocation(shaderProgram, 1, "in_TextureCoord");
 
 	glLinkProgram(shaderProgram);
+	GLint linkResult;
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &linkResult);
+	
+	
+	if (linkResult == GL_FALSE){
+		GLint length;
+		
+		/* get the program info log */
+		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &length);
+		char *infoLog = (char *)malloc(length);
+
+		glGetProgramInfoLog(shaderProgram, length, &linkResult, infoLog);
+
+		/* print an error message and the info log */
+		fprintf(stderr, "ShaderSetup::init(): Program linking failed: %s\n", infoLog);
+
+		/* delete the program */
+		glDeleteProgram(shaderProgram);
+		shaderProgram = 0;
+		throw;
+	}
+
 	glValidateProgram(shaderProgram);
 
 	glDetachShader(shaderProgram, vShader);
