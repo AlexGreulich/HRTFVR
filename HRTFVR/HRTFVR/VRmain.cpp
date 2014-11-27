@@ -2,6 +2,7 @@
 #include <GL/glew.h>  
 //#include <GL/glxew.h>
 #include <GLFW/glfw3.h>  
+#include "InputHandler.h"
 #include <glm.hpp>
 #include <stdio.h>  
 #include <stdlib.h>  
@@ -24,13 +25,6 @@ static void error_callback(int error, const char* description)
 {
 	fputs(description, stderr);
 	_fgetchar();
-}
-
-//Define the key input callback  
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
 void VRmain::init() {
@@ -97,7 +91,7 @@ int main(void)
 	vrmain->init();
 
 	//Sets the key callback  
-	glfwSetKeyCallback(window, key_callback);
+	glfwSetKeyCallback(window, InputHandler::keyCallback);
 
 	//Set a background color  
 	glClearColor(0.0f, 0.0f, 1.0f, 0.0f);

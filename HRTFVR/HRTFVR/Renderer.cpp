@@ -118,11 +118,6 @@ void Renderer::render(string meshHandle){
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-
-	
 	glFlush();
-	
-
 
 }
-;
