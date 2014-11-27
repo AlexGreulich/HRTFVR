@@ -49,7 +49,7 @@ GLuint ShaderSetup::init(){
 	if (vertexShaderErrorLog.length() != 0) {System.err.println("Vertex shader compile log: \n" + vertexShaderErrorLog);}
 	*/
 
-	std::string fshader = getShaderAsString(vertexShader);
+	std::string fshader = getShaderAsString(fragmentShader);
 	const GLchar *fsource = (const GLchar *)fshader.c_str();
 	//Fragment shader
 	fShader = glCreateShader(GL_FRAGMENT_SHADER);
