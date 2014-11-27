@@ -108,9 +108,19 @@ void ObjectMesh::allocateBuffers(){
 	//    i
 	//    i/t
 	//    i/t/n
+	//  the buffer multiplexes the data like that:
+	//  vertex(4) - normal(3) - texture(2)
+	//  vertexbuffer = [v.x, v.y, v.z, v.w, t.x, t.y, n.x, n.y, n.z, ... ]
+	//
+	//  face stores vectors like that: 
+	//  x -> pointer to vertex
+	//  y -> pointer to normal
+	//  z -> pointer to texture
+	// 
 	for (int i = 0; i < faces.size(); i++){
 		glm::vec3 face = faces[i];
 
+		// append vertex
 		if (face.x >= 0){
 			glm::vec4 v1 = vertices.at(face.x);
 			vertexBuffer.push_back(v1.x);
@@ -122,6 +132,22 @@ void ObjectMesh::allocateBuffers(){
 			std::cout << "corrupt vertex index at " << name;
 		}
 
+		// append normal
+		if (face.z >= 0){
+			glm::vec3 n1 = normals.at(face.z);
+			vertexBuffer.push_back(n1.x);
+			vertexBuffer.push_back(n1.y);
+			vertexBuffer.push_back(n1.z);
+		}
+		else{
+			std::cout << "no normals found in " << name;
+			glm::vec3 n1;
+			vertexBuffer.push_back(n1.x);
+			vertexBuffer.push_back(n1.y);
+			vertexBuffer.push_back(n1.z);
+		}
+
+		// append texture
 		if (face.y >= 0){
 
 			glm::vec2 t1 = textures.at(face.y);
@@ -135,19 +161,7 @@ void ObjectMesh::allocateBuffers(){
 			vertexBuffer.push_back(t1.y);
 		}
 
-		if ( face.z >= 0 ){
-			glm::vec3 n1 = normals.at(face.z);
-			vertexBuffer.push_back(n1.x);
-			vertexBuffer.push_back(n1.y);
-			vertexBuffer.push_back(n1.z);
-		}
-		else{
-			std::cout << "no normals found in " << name;
-			glm::vec3 n1;
-			vertexBuffer.push_back(n1.x);
-			vertexBuffer.push_back(n1.y);
-			vertexBuffer.push_back(n1.z);
-		}
+		
 		
 		indexBuffer.push_back(i);
 	}
