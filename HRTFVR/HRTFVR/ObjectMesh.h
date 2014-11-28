@@ -22,7 +22,7 @@ public:
 
 	// vertices
 	void setVertices(vector<glm::vec4> vertices);
-	GLuint getVerticesCount();
+	GLsizei getVerticesCount();
 	vector<glm::vec4> getVertices();
 	void addVertex(glm::vec4 vertex);
 
@@ -49,9 +49,9 @@ public:
 
 	void allocateBuffers();
 
-	const int VERTEX_ARRAY_POSITION = 0;
-	const int NORMAL_ARRAY_POSITION = 1;
-	const int TEXTURE_ARRAY_POSITION = 2;
+	GLuint VERTEX_ARRAY_POSITION = 0;
+	GLuint NORMAL_ARRAY_POSITION = 1;
+	GLuint TEXTURE_ARRAY_POSITION = 2;
 
 
 private: 
@@ -76,7 +76,7 @@ private:
 	vector<GLfloat> indexBuffer;
 
 	// shortcuts
-	GLuint verticesCount;
+	GLsizei verticesCount;
 	GLuint normalsCount;
 	GLuint texturesCount;
 	GLuint facesCount;

@@ -174,8 +174,13 @@ GLuint ObjLoader::parseTexture(string filename){
 		throw;
 		return 0;
 	};
+
+	/*	any texture MUST be of a ^2 size
+		if it's not, the application has to extend it
+		Also, glIntercept- debugged textures seem to be written backwards, maybe flip buffers?!
+	*/
 	width = 1024;
-	height = 512;
+	height = 1024;
 	data = (unsigned char *)malloc(width * height * 3);
 	//int size = fseek(file,);
 	fread(data, width * height * 3, 1, file);

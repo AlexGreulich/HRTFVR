@@ -25,7 +25,7 @@ void ObjectMesh::setVertices(vector<glm::vec4> vertices){
 	ObjectMesh::vertices = vertices;
 }
 
-GLuint ObjectMesh::getVerticesCount(){
+GLsizei ObjectMesh::getVerticesCount(){
 	return ObjectMesh::verticesCount;
 }
 
@@ -173,7 +173,7 @@ void ObjectMesh::allocateBuffers(){
 	// gen VBO & write into vbo
 	glGenBuffers(1, &vboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
-	glBufferData(GL_ARRAY_BUFFER, 12, &vertexBuffer, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, (verticesCount + normalsCount + texturesCount)*sizeof(GLfloat), &vertexBuffer, GL_STATIC_DRAW);
 	
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(VERTEX_ARRAY_POSITION, 4, GL_FLOAT, GL_FALSE, 36, (void*)0);
@@ -184,13 +184,16 @@ void ObjectMesh::allocateBuffers(){
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(TEXTURE_ARRAY_POSITION, 2, GL_FLOAT, GL_FALSE, 36, (void*)28);
 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	// reset VAO
+	glBindVertexArray(0);
 	// create ibo
 	glGenBuffers(1, &iboId);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboId);
-	glBufferData(GL_ARRAY_BUFFER, 12, &indexBuffer, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 36 , &indexBuffer, GL_STATIC_DRAW);	//hard coded! 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	// reset VAO
-	glBindVertexArray(0);
+
 
 	cout << "vaoID: " << vaoId << endl;
 	cout << "vboID: " << vboId << endl;

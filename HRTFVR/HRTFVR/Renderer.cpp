@@ -109,8 +109,15 @@ void Renderer::render(string meshHandle){
 		glEnableVertexAttribArray(2);
 		//get and bind IBO
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIboId() );
-			// Draw buffer elements (primitive type, size, data type, count (3 for 3 vertices/TRI))
-			glDrawElements(GL_TRIANGLES, mesh->getVerticesCount(), GL_UNSIGNED_SHORT, (void*)3);
+			// Draw buffer elements (GLenum mode, GLsizei count, GLenum type, const GLvoid * indices)
+			//  https://www.opengl.org/sdk/docs/man/html/glDrawElements.xhtml
+			//  https://www.opengl.org/sdk/docs/man/html/glDrawArrays.xhtml
+			glDrawElements(GL_TRIANGLES, mesh->getVerticesCount(), GL_UNSIGNED_SHORT, (void*)mesh->getIboId()); // ??!
+			
+			//glDrawArrays(GL_TRIANGLES, 0, 3);
+
+			
+
 		// unbind buffer so that other buffers may be bound
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
