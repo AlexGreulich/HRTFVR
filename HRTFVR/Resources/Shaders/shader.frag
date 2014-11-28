@@ -1,7 +1,7 @@
 #version 150
-uniform sampler2D texture_diffuse;
+uniform sampler2D tex0;
 in vec2 pass_TextureCoord;
 out vec4 out_Color;
 void main(void) {
-	out_Color = texture(texture_diffuse, pass_TextureCoord);
+	out_Color = texture(tex0, pass_TextureCoord);
 }

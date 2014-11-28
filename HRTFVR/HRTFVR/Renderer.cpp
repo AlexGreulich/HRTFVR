@@ -97,26 +97,33 @@ void Renderer::render(string meshHandle){
 		throw;
 	}
 
+	//tell opengl to use our shaderprogram
 	glUseProgram(shaders->getShaderProgram());
+	//bind a texture
 	glBindTexture(GL_TEXTURE_2D, mesh->getTextureId());
+	//bind vertex array
 	glBindVertexArray(mesh->getVaoId());
+		//probably useless if the vertex attribute declaration is only done in the VAO setup, but that's a guess
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
-		//get IBO
+		//get and bind IBO
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIboId() );
-			glDrawElements(GL_TRIANGLES, mesh->getVerticesCount(), GL_UNSIGNED_SHORT, (void*)0);
+			// Draw buffer elements (primitive type, size, data type, count (3 for 3 vertices/TRI))
+			glDrawElements(GL_TRIANGLES, mesh->getVerticesCount(), GL_UNSIGNED_SHORT, (void*)3);
+		// unbind buffer so that other buffers may be bound
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
-	
+	//also unbind vertexarray
 	glBindVertexArray(0);
-
+	// unbind texture
 	glBindTexture(GL_TEXTURE_2D, 0);
+
 	glUseProgram(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glFlush();
 

@@ -74,8 +74,9 @@ GLuint ShaderSetup::init(){
 
 	glBindAttribLocation(shaderProgram, 0, "in_Position");
 
-	// Texture -> attribute 1
-	glBindAttribLocation(shaderProgram, 1, "in_TextureCoord");
+	glBindAttribLocation(shaderProgram, 1, "in_Normal");
+
+	glBindAttribLocation(shaderProgram, 2, "in_TextureCoord");
 
 	glLinkProgram(shaderProgram);
 	GLint linkResult;
@@ -112,8 +113,8 @@ GLuint ShaderSetup::init(){
 	viewMatrixLocation = glGetUniformLocation(shaderProgram, "viewMatrix");
 	modelMatrixLocation = glGetUniformLocation(shaderProgram, "modelMatrix");
 
-	avatarPositionLocation = glGetUniformLocation(shaderProgram, "avatarPos");
-	avatarViewLocation = glGetUniformLocation(shaderProgram, "avatarDir");
+	//avatarPositionLocation = glGetUniformLocation(shaderProgram, "avatarPos");
+	//avatarViewLocation = glGetUniformLocation(shaderProgram, "avatarDir");
 
 	texLocation = glGetUniformLocation(shaderProgram, "tex0");
 
