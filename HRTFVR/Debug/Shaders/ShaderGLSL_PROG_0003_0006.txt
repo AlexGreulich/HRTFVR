@@ -1,0 +1,33 @@
+
+//== PROGRAM LINK STATUS = TRUE
+//== PROGRAM VALIDATE STATUS = TRUE
+
+//======================================================
+//   Vertex Shader 1 
+//======================================================
+
+//== SHADER COMPILE STATUS = TRUE
+#version 150 core  
+uniform mat4 projectionMatrix; 
+uniform mat4 viewMatrix; 
+uniform mat4 modelMatrix; 
+in vec4 in_Position; 
+in vec3 in_Normal;
+in vec2 in_TextureCoord; 
+out vec2 pass_TextureCoord; 
+void main(void) { 	
+gl_Position = projectionMatrix * viewMatrix * modelMatrix 	* in_Position; 
+pass_TextureCoord = in_TextureCoord;
+}
+//======================================================
+//   Fragment Shader 2
+//======================================================
+
+//== SHADER COMPILE STATUS = TRUE
+#version 150
+uniform sampler2D tex0;
+in vec2 pass_TextureCoord;
+out vec4 out_Color;
+void main(void) {
+	out_Color = texture(tex0, pass_TextureCoord);
+}

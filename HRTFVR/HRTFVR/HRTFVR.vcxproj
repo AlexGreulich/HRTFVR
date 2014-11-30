@@ -10,6 +10,36 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="EntitySettings.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="obj_loader.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="stb_image.c" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="transform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="Display.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="EntitySettings.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="obj_loader.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="transform.h" />
+    <ClInclude Include="util.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{041D497F-54DD-478C-9B8F-E1DEE3DD85F0}</ProjectGuid>
     <RootNamespace>HRTFVR</RootNamespace>
@@ -75,30 +105,6 @@
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="ObjectMesh.h" />
-    <ClInclude Include="ObjLoader.h" />
-    <ClInclude Include="OculusHandler.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="ShaderSetup.h" />
-    <ClInclude Include="UserAvatar.h" />
-    <ClInclude Include="VRmain.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="ObjectMesh.cpp" />
-    <ClCompile Include="ObjLoader.cpp" />
-    <ClCompile Include="OculusHandler.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="ShaderSetup.cpp" />
-    <ClCompile Include="UserAvatar.cpp" />
-    <ClCompile Include="VRmain.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
