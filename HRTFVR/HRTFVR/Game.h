@@ -25,7 +25,7 @@ private:
 	const double ROTATE_SPEED = 0.3f;
 	const double PITCH_SPEED = 0.3f;
 	const double INVERT_Y_AXIS_MULTIPLIER = -1; // 1  ||  -1
-	const int CREATE_TIMEOUT = 3000;
+	const int CREATE_TIMEOUT = 40;
 
 	Display *m_display;
 	Camera *m_camera;
