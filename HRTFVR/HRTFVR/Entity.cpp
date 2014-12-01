@@ -1,21 +1,23 @@
 #include "Entity.h"
 #include <math.h>
+#include <ctime>
 
 
-Entity::Entity(Texture* texture, Mesh* mesh, glm::vec3 position, double* timer):
+Entity::Entity(Texture* texture, Mesh* mesh, glm::vec3 position, double baseTimer):
 m_transform()
 {
 	m_texture = texture;
 	m_mesh = mesh;
-	m_timer = timer;
+	m_timer = baseTimer;
 	m_transform.SetPos(position);
 }
 
 void Entity::Draw(){
 
 	if ( m_isRotating ){
-		glm::vec3 timeVector(*m_timer * m_rotation_speed.x, *m_timer * m_rotation_speed.y, *m_timer * m_rotation_speed.z);
-		m_transform.SetRot(timeVector * m_rotation_speed);
+		double ctime = glfwGetTime() - m_timer;
+		glm::vec3 timedVector(ctime * m_rotation_speed.x, ctime * m_rotation_speed.y, ctime * m_rotation_speed.z);
+		m_transform.SetRot(timedVector * m_rotation_speed);
 	}
 
 	m_mesh->Draw();

@@ -63,7 +63,7 @@ void EntityManager::CreateEntity(const std::string name, glm::vec3 position, boo
 	}
 
 	// finalyl create entity
-	Entity* entity = new Entity(m_textureMap.at(setting.texture), m_meshMap.at(setting.mesh), position, m_timer);
+	Entity* entity = new Entity(m_textureMap.at(setting.texture), m_meshMap.at(setting.mesh), position, *m_timer);
 
 	if (rotate){
 		entity->Rotate(glm::vec3(10.0f, 5.0f, 0.0f));

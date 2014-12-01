@@ -11,7 +11,7 @@
 class Entity
 {
 public:
-	Entity(Texture* texture, Mesh* mesh, glm::vec3 position, double* timer);
+	Entity(Texture* texture, Mesh* mesh, glm::vec3 position, double baseTimer);
 	void Draw();
 	void BindTexture();
 	void SetPosition(glm::vec3 position);
@@ -25,7 +25,7 @@ private:
 	Texture* m_texture;
 	Mesh* m_mesh;
 	Transform m_transform;
-	double* m_timer;
+	double m_timer;
 	bool m_isRotating = false;
 	glm::vec3 m_rotation_speed = glm::vec3(0.0f, 0.0f, 0.0f);
 	
