@@ -49,9 +49,9 @@ Mesh::~Mesh()
 void Mesh::Draw()
 {
 	glBindVertexArray(m_vertexArrayObject);
-
-	glDrawElementsBaseVertex(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0, 0);
-	//glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
+	
+	//glDrawElementsBaseVertex(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0, 0);
+	glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
 
 	glBindVertexArray(0);
 }

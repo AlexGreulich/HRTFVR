@@ -48,3 +48,7 @@ void Camera::RotateY(float angle)
 	m_forward = glm::vec3(glm::normalize(rotation * glm::vec4(m_forward, 0.0)));
 	m_up = glm::vec3(glm::normalize(rotation * glm::vec4(m_up, 0.0)));
 }
+
+glm::vec3 Camera::GetForward(){
+	return m_forward;
+}

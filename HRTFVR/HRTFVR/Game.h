@@ -25,19 +25,19 @@ private:
 	const double ROTATE_SPEED = 0.3f;
 	const double PITCH_SPEED = 0.3f;
 	const double INVERT_Y_AXIS_MULTIPLIER = -1; // 1  ||  -1
+	const int CREATE_TIMEOUT = 3000;
 
 	Display *m_display;
-	Transform *m_transform;
 	Camera *m_camera;
-
-	Shader m_shader;
-	EntityManager m_entityManager;
+	Shader* m_shader;
+	EntityManager* m_entityManager;
 
 
 	int m_xpos;
 	int m_ypos;
 
 	double m_timer;
+	double m_createTimer;
 	double m_deltaTime;
 };
 

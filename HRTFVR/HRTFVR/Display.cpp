@@ -40,6 +40,7 @@ Display::Display(int width, int height, std::string title)
 void Display::setupOpenGL(){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_LIGHTING);
 
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 

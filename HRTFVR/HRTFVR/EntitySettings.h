@@ -10,7 +10,7 @@ public:
 	{
 		std::string texture;
 		std::string mesh;
-		explicit operator bool() { return (texture != "" && mesh != ""); }
+		explicit operator bool() { return mesh != ""; }
 	};
 
 	EntitySettings();

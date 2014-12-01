@@ -12,12 +12,22 @@ EntitySettings::EntitySettings(){
 	cube.texture = "./res/textures/cube-texture.jpg";
 
 	struct Setting teapot;
-	teapot.mesh = "./res/meshes/cube.obj";
-	teapot.texture = "./res/textures/cube-texture.bmp";
+	teapot.mesh = "./res/meshes/tpt.obj";
+	teapot.texture = "./res/textures/bricks.jpg";
+
+	struct Setting octahedron;
+	octahedron.mesh = "./res/meshes/octahedron.obj";
+	octahedron.texture = "./res/textures/bricks.jpg";
+
+	struct Setting skyscraper;
+	skyscraper.mesh = "./res/meshes/skscr.obj";
+	skyscraper.texture = "./res/textures/bricks.jpg";
 
 	m_settings["cube"] = cube;
 	m_settings["monkey"] = monkey;
 	m_settings["teapot"] = teapot;
+	m_settings["octahedron"] = octahedron;
+	m_settings["skyscraper"] = skyscraper;
 
 }
 

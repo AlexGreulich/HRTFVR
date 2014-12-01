@@ -2,17 +2,17 @@
 #include <glm.hpp>
 #include <iostream>
 
-Game::Game(Display *display):
-m_shader("./res/shaders/basic"),
-m_entityManager()
+Game::Game(Display *display)
 {
-	m_display = display;
-	m_transform = new Transform();
-	m_camera = new Camera(glm::vec3(0.0f, 0.0f, -5.0f), 70.0f, (float)display->getWidth() / (float)display->getHeight(), 0.1f, 100.0f);
 	m_timer = glfwGetTime();
+	m_entityManager = new EntityManager(&m_timer);
+	m_display = display;
+	m_shader = new Shader("./res/shaders/basic");
+	m_camera = new Camera(glm::vec3(0.0f, 0.0f, -5.0f), 70.0f, (float)display->getWidth() / (float)display->getHeight(), 0.1f, 100.0f);
 }
 
 void Game::Update(){
+	m_createTimer--;
 	// get time diff
 	m_deltaTime = glfwGetTime() - m_timer;
 
@@ -20,11 +20,9 @@ void Game::Update(){
 	HandleKeys();
 	
 	// bind & update shader
-	m_shader.Bind();
-	m_shader.Update(m_transform, m_camera);
+	m_shader->Bind();
 
-	//m_monkey.Draw();
-	m_entityManager.Render();
+	m_entityManager->Render(m_shader, m_camera);
 
 	// update timer
 	m_timer = glfwGetTime();
@@ -56,6 +54,16 @@ void Game::HandleKey(int key, int scancode, int action, int mods){
 		m_camera->MoveBack(m_deltaTime * MOVE_SPEED);
 	}
 
+	if ( glfwGetKey(m_display->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS ){
+		if (m_createTimer > 0){
+			std::cout << "cannot create: timer " << m_createTimer << std::endl;
+		}
+		glm::vec3 fwd = m_camera->GetForward();
+		fwd.x = fwd.x * 20;
+		m_entityManager->CreateEntity("monkey", fwd, true);
+		m_createTimer = CREATE_TIMEOUT;
+	}
+
 }
 
 /*
@@ -81,5 +89,7 @@ void Game::HandleMouse(int xpos, int ypos){
 
 Game::~Game()
 {
-	
+	delete m_entityManager;
+	delete m_shader;
+	delete m_camera;
 }
