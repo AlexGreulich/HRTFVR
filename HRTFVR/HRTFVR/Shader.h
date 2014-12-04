@@ -4,14 +4,14 @@
 #include <string>
 #include <GL/glew.h>
 #include "transform.h"
-
+#include "Mesh.h"
 class Shader
 {
 public:
 	Shader(const std::string& fileName);
 
 	void Bind();
-	void Update(Transform *transform, Camera *camera);
+	void Update(Transform *transform, Camera *camera, Material* mat);
 
 	virtual ~Shader();
 protected:
@@ -21,6 +21,18 @@ private:
 	static const unsigned int UNIFORM_MVP_LOCATION = 0;
 	static const unsigned int UNIFORM_NORMAL_LOCATION = 1;
 	static const unsigned int UNIFORM_LIGHT_DIRECTION_LOCATION = 2;
+	static const unsigned int UNIFORM_LIGHT_POSITION_LOCATION = 3;
+
+	static const unsigned int UNIFORM_LIGHT_SOURCE_DIFFUSE_LOCATION = 4;
+	static const unsigned int UNIFORM_LIGHT_SOURCE_AMBIENT_LOCATION = 5;
+	static const unsigned int UNIFORM_LIGHT_SOURCE_SPECULAR_LOCATION = 6;
+	
+	static const unsigned int UNIFORM_MAT_DIFFUSE_LOCATION = 7;
+	static const unsigned int UNIFORM_MAT_AMBIENT_LOCATION = 8;
+	static const unsigned int UNIFORM_MAT_SPECULAR_LOCATION = 9;
+	static const unsigned int UNIFORM_MAT_EMISSIVE_LOCATION = 10;
+	static const unsigned int UNIFORM_MAT_SHINE_LOCATION = 11;
+
 
 	Shader(const Shader& shader) {}
 

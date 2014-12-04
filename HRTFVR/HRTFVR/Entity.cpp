@@ -3,11 +3,12 @@
 #include <ctime>
 
 
-Entity::Entity(Texture* texture, Mesh* mesh, glm::vec3 position, double baseTimer):
+Entity::Entity(Texture* texture, Mesh* mesh, Material* mat, glm::vec3 position, double baseTimer):
 m_transform()
 {
 	m_texture = texture;
 	m_mesh = mesh;
+	m_material = mat;
 	m_timer = baseTimer;
 	m_transform.SetPos(position);
 }
@@ -46,6 +47,10 @@ glm::vec3 Entity::GetPosition(){
 
 Transform* Entity::GetTransform(){
 	return &m_transform;
+}
+
+Material* Entity::getMaterial(){
+	return this->m_material;
 }
 
 Entity::~Entity()

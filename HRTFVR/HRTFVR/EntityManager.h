@@ -13,6 +13,7 @@ public:
 	EntityManager(double* timer);
 	void SetupMeshes();
 	void SetupTextures();
+	void setupMaterials();
 
 	void CreateEntity(const std::string name, glm::vec3 position, bool rotate);
 	void CreateEntity(const std::string name, glm::vec3 position);
@@ -27,6 +28,7 @@ private:
 	std::vector<Entity*> m_entities;
 	std::map<std::string, Mesh*> m_meshMap;
 	std::map<std::string, Texture*> m_textureMap;
+	std::map<std::string, Material*> materials;
 
 	EntitySettings m_entitySettings;
 };

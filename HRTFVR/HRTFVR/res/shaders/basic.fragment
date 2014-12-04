@@ -1,13 +1,36 @@
-#version 120
+#version 150
 
-varying vec2 texCoord0;
-varying vec3 normal0;
+in vec2 texCoord0;
+in vec3 normal0;
 
 uniform sampler2D sampler;
 uniform vec3 lightDirection;
+uniform vec3 lightPosition;
+
+struct Lightsource
+{
+	vec3 diffuse;
+	vec3 ambient;
+	vec3 specular;
+};
+
+struct Material
+{
+	vec3 diffuse;
+	vec3 ambient;
+	vec3 specular;
+	vec3 emissive;
+	float shininess;
+};
+
+uniform Material meshMat;
+
+uniform Lightsource light;
 
 void main()
 {
 	gl_FragColor = texture2D(sampler, texCoord0) * 
 		clamp(dot(-lightDirection, normal0), 0.0, 1.0);
+		
+		
 }

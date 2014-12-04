@@ -27,6 +27,32 @@ private:
 	glm::vec3 normal;
 };
 
+struct Material
+{
+public:
+	Material(const glm::vec3& d, const glm::vec3& a, const glm::vec3& s, const glm::vec3& e, const float& sh)
+	{
+		diffuse = d;
+		ambient = a;
+		specular = s;
+		emissive = e;
+		shininess = sh;
+	}
+
+	glm::vec3 getDiffuse(){ return diffuse; }
+	glm::vec3 getAmbient(){ return ambient; }
+	glm::vec3 getSpecular(){ return specular;	}
+	glm::vec3 getEmissive(){ return emissive;	}
+	float getShininess(){ return shininess; }
+
+private:
+	glm::vec3 diffuse;
+	glm::vec3 ambient;
+	glm::vec3 specular;
+	glm::vec3 emissive;
+	float shininess;
+
+};
 enum MeshBufferPositions
 {
 	POSITION_VB,
@@ -42,6 +68,7 @@ public:
 	void Draw();
 
 	virtual ~Mesh();
+
 protected:
 private:
 	static const unsigned int NUM_BUFFERS = 4;
@@ -50,6 +77,7 @@ private:
 	GLuint m_vertexArrayObject;
 	GLuint m_vertexArrayBuffers[NUM_BUFFERS];
 	unsigned int m_numIndices;
+
 };
 
 #endif

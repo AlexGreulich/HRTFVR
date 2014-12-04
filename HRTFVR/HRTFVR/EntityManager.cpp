@@ -9,8 +9,10 @@ m_entitySettings()
 
 	SetupMeshes();
 	SetupTextures();
-	
+	setupMaterials();
 	CreateEntity("teapot", glm::vec3(0.0f, 0.0f, 0.0f));
+	CreateEntity("monkey", glm::vec3(10.0f, 0.0f, 0.0f));
+
 }
 
 void EntityManager::SetupMeshes(){
@@ -63,7 +65,7 @@ void EntityManager::CreateEntity(const std::string name, glm::vec3 position, boo
 	}
 
 	// finalyl create entity
-	Entity* entity = new Entity(m_textureMap.at(setting.texture), m_meshMap.at(setting.mesh), position, *m_timer);
+	Entity* entity = new Entity(m_textureMap.at(setting.texture), m_meshMap.at(setting.mesh), materials[name], position, *m_timer);
 
 	if (rotate){
 		entity->Rotate(glm::vec3(10.0f, 5.0f, 0.0f));
@@ -82,12 +84,22 @@ void EntityManager::CreateEntity(const std::string name, glm::vec3 position){
 void EntityManager::Render(Shader* shader, Camera* camera){
 	for (std::vector<Entity*>::iterator it = m_entities.begin(); it != m_entities.end(); ++it){
 		
-		shader->Update((*it)->GetTransform(), camera);
+		shader->Update((*it)->GetTransform(), camera, (*it)->getMaterial());
 		(**it).BindTexture();
 		(*it)->Draw();
 	}
 }
 
+void EntityManager::setupMaterials(){
+	materials["cube"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
+	materials["monkey"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
+	materials["skyscraper"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
+	materials["octahedron"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
+	materials["teapot"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
+
+}
+
 EntityManager::~EntityManager()
 {
+
 }
