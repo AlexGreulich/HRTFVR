@@ -7,8 +7,9 @@ Game::Game(Display *display)
 	m_timer = glfwGetTime();
 	m_entityManager = new EntityManager(&m_timer);
 	m_display = display;
-	m_shader = new Shader("./res/shaders/basic");
-	m_camera = new Camera(glm::vec3(0.0f, 0.0f, -5.0f), 70.0f, (float)display->getWidth() / (float)display->getHeight(), 0.1f, 100.0f);
+	m_camera = new Camera(glm::vec3(0.0f, 0.0f, 0.0f), 70.0f, (float)display->getWidth() / (float)display->getHeight(), 0.1f, 100.0f);
+	m_shader = new Shader("./res/shaders/basic.vertex", "./res/shaders/basic.fragment");
+	
 }
 
 void Game::Update(){
@@ -90,7 +91,7 @@ void Game::HandleMouse(int xpos, int ypos){
 
 Game::~Game()
 {
-	delete m_entityManager;
+	delete m_entityManager;delete m_camera;
 	delete m_shader;
-	delete m_camera;
+	
 }

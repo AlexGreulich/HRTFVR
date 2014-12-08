@@ -12,6 +12,7 @@ public:
 
 	glm::mat4 GetModel();
 	glm::mat4 GetMVP(Camera *camera);
+	glm::mat4 getNormalMat(Camera *camera);
 
 	glm::vec3 GetPos();
 	glm::vec3 GetRot();

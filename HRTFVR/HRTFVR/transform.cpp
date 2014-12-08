@@ -19,6 +19,10 @@ glm::mat4 Transform::GetModel()
 	return posMat * rotMat * scaleMat;
 }
 
+glm::mat4 Transform::getNormalMat(Camera *camera){
+	return glm::transpose(glm::inverse(camera->getView() * GetModel()));
+}
+
 glm::mat4 Transform::GetMVP(Camera *camera)
 {
 	glm::mat4 VP = camera->GetViewProjection();

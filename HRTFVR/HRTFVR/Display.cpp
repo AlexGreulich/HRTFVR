@@ -1,6 +1,6 @@
 #include "Display.h"
 #include <GL/glew.h>
-#include <GLFW\glfw3.h>
+#include <GLFW/glfw3.h>
 #include <iostream>
 
 Display::Display(int width, int height, std::string title)

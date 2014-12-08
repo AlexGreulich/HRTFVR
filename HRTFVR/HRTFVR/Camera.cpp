@@ -11,6 +11,14 @@ glm::mat4 Camera::GetViewProjection(){
 	return m_projection * glm::lookAt(m_pos, m_pos + m_forward, m_up);
 }
 
+glm::mat4 Camera::getView(){
+	return glm::lookAt(m_pos, m_pos + m_forward, m_up); 
+}
+
+glm::mat4 Camera::getProjection(){
+	return m_projection;
+}
+
 void Camera::MoveForward(float amt)
 {
 	m_pos += m_forward * amt;

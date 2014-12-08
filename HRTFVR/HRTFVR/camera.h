@@ -10,6 +10,8 @@ public:
 	Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar);
 
 	glm::mat4 GetViewProjection();
+	glm::mat4 getView();
+	glm::mat4 getProjection();
 	glm::vec3 GetForward();
 	void MoveForward(float amt);
 	void MoveBack(float amt);

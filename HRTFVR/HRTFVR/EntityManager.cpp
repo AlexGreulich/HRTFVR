@@ -10,9 +10,9 @@ m_entitySettings()
 	SetupMeshes();
 	SetupTextures();
 	setupMaterials();
-	CreateEntity("teapot", glm::vec3(0.0f, 0.0f, 0.0f));
-	CreateEntity("monkey", glm::vec3(10.0f, 0.0f, 0.0f));
-
+	CreateEntity("teapot", glm::vec3(10.0f, 0.0f, 5.0f));
+	CreateEntity("monkey", glm::vec3(10.0f, 0.0f, -5.0f));
+	
 }
 
 void EntityManager::SetupMeshes(){
@@ -91,15 +91,36 @@ void EntityManager::Render(Shader* shader, Camera* camera){
 }
 
 void EntityManager::setupMaterials(){
-	materials["cube"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
-	materials["monkey"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
-	materials["skyscraper"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
-	materials["octahedron"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
-	materials["teapot"] = new Material(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f), 0.0f);
+	materials["cube"] = new Material(glm::vec4(0.5f), glm::vec4(0.2f), glm::vec4(0.7f), glm::vec4(0.1f), 5.0f);
+	materials["monkey"] = 
+		new Material(		// its going to be a jade monkey
+			glm::vec4(0.54f, 0.89f, 0.63f, 1.0f), //diffuse
+			glm::vec4(0.14f, 0.22f, 0.16f, 1.0f),
+			glm::vec4(0.32f, 0.32f, 0.32f, 1.0f),
+			glm::vec4(0.0f),
+			12.8f);
+	materials["skyscraper"] = new Material(glm::vec4(0.0f), glm::vec4(0.0f), glm::vec4(0.0f), glm::vec4(0.0f), 0.0f);
+	materials["octahedron"] = new Material(glm::vec4(0.0f), glm::vec4(0.0f), glm::vec4(0.0f), glm::vec4(0.0f), 0.0f);
+	materials["teapot"] = 
+		new Material(	//polished bronze pot
+		glm::vec4(0.4f, 0.24f, 0.1f, 1.0f),
+		glm::vec4(0.25f, 0.15f, 0.06f, 1.0f),
+		glm::vec4(0.77f, 0.46f, 0.20f, 1.0f),
+		glm::vec4(0.0f),
+			76.8f);
 
 }
 
 EntityManager::~EntityManager()
 {
+	// Stuff has to be deleted!!! There is an error when closing the application
+	//for (int i = 0; i < m_entities.size(); i++){
+		
+	//	m_entities[i]->~Entity();
+	//}
+	m_entities.clear();
+	m_textureMap.clear();
+	m_meshMap.clear();
+	materials.clear();
 
 }

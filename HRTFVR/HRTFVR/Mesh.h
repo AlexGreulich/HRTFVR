@@ -30,7 +30,7 @@ private:
 struct Material
 {
 public:
-	Material(const glm::vec3& d, const glm::vec3& a, const glm::vec3& s, const glm::vec3& e, const float& sh)
+	Material(const glm::vec4& d, const glm::vec4& a, const glm::vec4& s, const glm::vec4& e, const float& sh)
 	{
 		diffuse = d;
 		ambient = a;
@@ -39,17 +39,17 @@ public:
 		shininess = sh;
 	}
 
-	glm::vec3 getDiffuse(){ return diffuse; }
-	glm::vec3 getAmbient(){ return ambient; }
-	glm::vec3 getSpecular(){ return specular;	}
-	glm::vec3 getEmissive(){ return emissive;	}
+	glm::vec4 getDiffuse(){ return diffuse; }
+	glm::vec4 getAmbient(){ return ambient; }
+	glm::vec4 getSpecular(){ return specular;	}
+	glm::vec4 getEmissive(){ return emissive;	}
 	float getShininess(){ return shininess; }
 
 private:
-	glm::vec3 diffuse;
-	glm::vec3 ambient;
-	glm::vec3 specular;
-	glm::vec3 emissive;
+	glm::vec4 diffuse;
+	glm::vec4 ambient;
+	glm::vec4 specular;
+	glm::vec4 emissive;
 	float shininess;
 
 };
