@@ -1,0 +1,40 @@
+#version 300 es
+
+in highp vec3 N;
+in highp vec3 V;
+in highp vec3 L;
+in highp vec2 texCoord0;
+in highp vec3 normal0;
+
+out highp vec4 fColor;
+
+uniform highp sampler2D sampler;
+uniform highp vec3 lightDirection;
+uniform highp vec3 lightPosition;
+
+struct Lightsource
+{
+	highp vec3 diffuse;
+	highp vec3 ambient;
+	highp vec3 specular;
+};
+struct Material
+{
+	highp vec4 diffuse;	
+	highp vec4 ambient;	
+	highp vec4 specular;
+	highp vec4 emissive;
+	highp float shininess;
+};
+
+uniform Material meshMat;
+uniform Lightsource light;
+
+void main()
+{
+	highp vec3 R = reflect(-L, N);
+	highp vec4 diffuse = max(dot(N, L), 0.0) * meshMat.diffuse;
+	highp vec4 specular = pow(max(dot(R, V), 0.0), meshMat.shininess) * meshMat.specular;
+	highp vec4 ambient = meshMat.ambient * vec4(light.ambient, 1.0);
+	fColor = texture2D(sampler, texCoord0)* (diffuse + ambient + specular);	
+}
