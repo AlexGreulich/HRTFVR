@@ -5,6 +5,8 @@
 #include <GL/glew.h>
 #include "Transform.h"
 #include "Mesh.h"
+#include "Logger.h"
+
 class Shader
 {
 public:

@@ -259,6 +259,30 @@ src/Game.cpp.s:
 	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Game.cpp.s
 .PHONY : src/Game.cpp.s
 
+src/Loader.o: src/Loader.cpp.o
+.PHONY : src/Loader.o
+
+# target to build an object file
+src/Loader.cpp.o:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Loader.cpp.o
+.PHONY : src/Loader.cpp.o
+
+src/Loader.i: src/Loader.cpp.i
+.PHONY : src/Loader.i
+
+# target to preprocess a source file
+src/Loader.cpp.i:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Loader.cpp.i
+.PHONY : src/Loader.cpp.i
+
+src/Loader.s: src/Loader.cpp.s
+.PHONY : src/Loader.s
+
+# target to generate assembly for a file
+src/Loader.cpp.s:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Loader.cpp.s
+.PHONY : src/Loader.cpp.s
+
 src/Mesh.o: src/Mesh.cpp.o
 .PHONY : src/Mesh.o
 
@@ -430,6 +454,9 @@ help:
 	@echo "... src/Game.o"
 	@echo "... src/Game.i"
 	@echo "... src/Game.s"
+	@echo "... src/Loader.o"
+	@echo "... src/Loader.i"
+	@echo "... src/Loader.s"
 	@echo "... src/Mesh.o"
 	@echo "... src/Mesh.i"
 	@echo "... src/Mesh.s"

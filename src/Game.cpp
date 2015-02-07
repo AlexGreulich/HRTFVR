@@ -6,14 +6,23 @@
 #include <glm/glm.hpp>
 #include <iostream>
 
-Game::Game(Display *display)
+Game::Game(Display *display):
+m_display(display),
+m_timer(glfwGetTime()),
+m_camera(new Camera(
+	glm::vec3(0.0, 0.0, 0.0),
+	70.0f,
+	display->getAspectRatio(),
+	0.1f,
+	100.0f
+)),
+m_loader(new Loader()),
+m_entityManager(new EntityManager(&m_timer, m_loader))
 {
-	m_timer = glfwGetTime();
-	m_entityManager = new EntityManager(&m_timer);
-	m_display = display;
-	m_camera = new Camera(glm::vec3(0.0f, 0.0f, 0.0f), 70.0f, (float)display->getWidth() / (float)display->getHeight(), 0.1f, 100.0f);
-	m_shader = new Shader("resources/shaders/basic.vertex", "resources/shaders/basic.fragment");
-	
+	m_shader = new Shader(
+		"resources/shaders/basic.vertex",
+		"resources/shaders/basic.fragment"
+	);
 }
 
 void Game::Update(){

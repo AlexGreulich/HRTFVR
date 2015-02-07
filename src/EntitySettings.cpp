@@ -25,11 +25,16 @@ EntitySettings::EntitySettings(){
 	skyscraper.mesh = "resources/meshes/skscr.obj";
 	skyscraper.texture = "resources/textures/bricks.jpg";
 
+	struct Setting terrain_mud;
+	terrain_mud.mesh = "resources/meshes/terrain_mud.obj";
+	terrain_mud.texture = "resources/textures/SoilMud0091_5_S.jpg";
+
 	m_settings["cube"] = cube;
 	m_settings["monkey"] = monkey;
 	m_settings["teapot"] = teapot;
 	m_settings["octahedron"] = octahedron;
 	m_settings["skyscraper"] = skyscraper;
+	m_settings["terrain_mud"] = terrain_mud;
 
 }
 

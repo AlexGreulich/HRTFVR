@@ -15,6 +15,7 @@ public:
 	GLFWwindow* getWindow();
 	int getWidth();
 	int getHeight();
+	float getAspectRatio();
 	virtual ~Display();
 protected:
 private:

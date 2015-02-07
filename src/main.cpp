@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <iostream>
+
 #include "Display.h"
 #include "Shader.h"
 #include "Mesh.h"
@@ -10,9 +11,12 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "Game.h"
+#include "Logger.h"
 
 static const int DISPLAY_WIDTH = 800;
 static const int DISPLAY_HEIGHT = 600;
+
+INITIALIZE_EASYLOGGINGPP
 
 // static proxy function to propagate the key events to the display instance
 static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods){
@@ -26,7 +30,17 @@ static void mouseMoveCallback(GLFWwindow* window, double xpos, double ypos){
 	game->HandleMouse(xpos, ypos);
 }
 
-int main(){
+int main(int argc, const char** argv){
+
+	START_EASYLOGGINGPP(argc, argv);
+
+	// configure logger
+	el::Loggers::reconfigureAllLoggers(
+		el::ConfigurationType::Format,
+		"[%level] %msg"
+	);
+
+    // Setup OpenGL context
 	Display display(800, 600, "HRTFVR");
 	Game game(&display);
 

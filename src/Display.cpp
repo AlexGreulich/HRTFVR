@@ -40,6 +40,10 @@ Display::Display(int width, int height, std::string title)
 
 }
 
+float Display::getAspectRatio(){
+	return (float) m_width / m_height;
+}
+
 void Display::setupOpenGL(){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);

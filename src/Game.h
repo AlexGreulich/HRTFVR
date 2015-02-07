@@ -11,6 +11,7 @@
 #include "Mesh.h"
 #include "Entity.h"
 #include "EntityManager.h"
+#include "Loader.h"
 
 class Game
 {
@@ -29,8 +30,9 @@ private:
 	const double INVERT_Y_AXIS_MULTIPLIER = -1; // 1  ||  -1
 	const int CREATE_TIMEOUT = 40;
 
-	Display *m_display;
-	Camera *m_camera;
+	Loader* m_loader;
+	Display* m_display;
+	Camera* m_camera;
 	Shader* m_shader;
 	EntityManager* m_entityManager;
 

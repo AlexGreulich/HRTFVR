@@ -3,54 +3,15 @@
 
 #include "EntityManager.h"
 #include <iostream>
+#include "Logger.h"
 
-EntityManager::EntityManager(double* timer):
-m_entitySettings()
+EntityManager::EntityManager(double* timer, Loader* loader):
+m_loader(loader),
+m_entitySettings(),
+m_timer(timer)
 {
-	// store pointer to timer
-	m_timer = timer;
-
-	SetupMeshes();
-	SetupTextures();
-	setupMaterials();
-	CreateEntity("teapot", glm::vec3(10.0f, 0.0f, 5.0f));
-	CreateEntity("monkey", glm::vec3(10.0f, 0.0f, -5.0f));
-	
-}
-
-void EntityManager::SetupMeshes(){
-
-	//@todo place this in header if possible
-	std::string m_meshPreloader[2] = {
-		"resources/meshes/monkey.obj",
-		"resources/meshes/tpt.obj"
-	};
-
-	// for every string in preloader:
-	// load it into the mesh map
-	// and make it available with the path as key
-	for (std::string* p = &m_meshPreloader[0]; p != &m_meshPreloader[2]; ++p){
-		m_meshMap.insert(
-			std::pair<std::string, Mesh*>(*p, new Mesh(*p))
-		);
-	}
-
-}
-
-void EntityManager::SetupTextures(){
-	
-	//@todo place this in header if possible
-	std::string m_texturePreloader[1] = {
-		"resources/textures/bricks.jpg"
-	};
-
-	// for every string in preloader:
-	// load it into the mesh map
-	// and make it available with the path as key
-	for (std::string* p = &m_texturePreloader[0]; p != &m_texturePreloader[1]; ++p){
-		m_textureMap[*p] = new Texture(*p);
-	}
-
+	SetupMaterials();
+	CreateEntity("terrain_mud", glm::vec3(0, -4.0f, 0));
 }
 
 void EntityManager::CreateEntity(const std::string name, glm::vec3 position, bool rotate){
@@ -59,18 +20,24 @@ void EntityManager::CreateEntity(const std::string name, glm::vec3 position, boo
 	
 	// check if setting exists
 	if (!setting){
-		std::cerr << "No setting found for: " << name << std::endl;
+		LOG(FATAL) << "No setting found for: " << name;
 		return;
 	}
 	
 	// check if mesh & texture is loaded yet...
-	if ( m_meshMap.find(setting.mesh) == m_meshMap.end() || m_textureMap.find(setting.texture) == m_textureMap.end() ){
-		std::cout << "mesh " << setting.mesh << " or texture " << setting.texture << " not loaded" << std::endl;
+	if ( false == m_loader->MeshExists(setting.mesh) || false == m_loader->TextureExists(setting.texture) ){
+		LOG(FATAL) << "Mesh " << setting.mesh << " or texture " << setting.texture << " is not loaded";
 		return;
 	}
 
 	// finally create entity
-	Entity* entity = new Entity(m_textureMap.at(setting.texture), m_meshMap.at(setting.mesh), materials[name], position, *m_timer);
+	Entity* entity = new Entity(
+		m_loader->GetTexture(setting.texture),
+		m_loader->GetMesh(setting.mesh),
+		materials[name],
+		position,
+		*m_timer
+	);
 
 	if (rotate){
 		entity->Rotate(glm::vec3(10.0f, 5.0f, 0.0f));
@@ -100,24 +67,36 @@ void EntityManager::Render(Shader* shader, Camera* camera){
 	}
 }
 
-void EntityManager::setupMaterials(){
+void EntityManager::SetupMaterials(){
+
 	materials["cube"] = new Material(glm::vec4(0.5f), glm::vec4(0.2f), glm::vec4(0.7f), glm::vec4(0.1f), 5.0f);
 	materials["monkey"] = 
 		new Material(		// its going to be a jade monkey
 			glm::vec4(0.54f, 0.89f, 0.63f, 1.0f), //diffuse
-			glm::vec4(0.14f, 0.22f, 0.16f, 1.0f),
-			glm::vec4(0.32f, 0.32f, 0.32f, 1.0f),
-			glm::vec4(0.0f),
-			12.8f);
+			glm::vec4(0.14f, 0.22f, 0.16f, 1.0f), // ambient
+			glm::vec4(0.32f, 0.32f, 0.32f, 1.0f),  // specular
+			glm::vec4(0.0f), // emmissive
+			12.8f // shininess
+		);
 	materials["skyscraper"] = new Material(glm::vec4(0.0f), glm::vec4(0.0f), glm::vec4(0.0f), glm::vec4(0.0f), 0.0f);
 	materials["octahedron"] = new Material(glm::vec4(0.0f), glm::vec4(0.0f), glm::vec4(0.0f), glm::vec4(0.0f), 0.0f);
 	materials["teapot"] = 
 		new Material(	//polished bronze pot
-		glm::vec4(0.4f, 0.24f, 0.1f, 1.0f),
-		glm::vec4(0.25f, 0.15f, 0.06f, 1.0f),
-		glm::vec4(0.77f, 0.46f, 0.20f, 1.0f),
-		glm::vec4(0.0f),
-			76.8f);
+			glm::vec4(0.4f, 0.24f, 0.1f, 1.0f),
+			glm::vec4(0.25f, 0.15f, 0.06f, 1.0f),
+			glm::vec4(0.77f, 0.46f, 0.20f, 1.0f),
+			glm::vec4(0.0f),
+				76.8f
+		);
+
+	materials["terrain_mud"] = 
+		new Material(	//polished bronze
+			glm::vec4(0.2f, 0.2f, 0.2f, 1.0f),
+			glm::vec4(0.8f, 0.8f, 0.8f, 1.0f),
+			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
+			glm::vec4(1.0f),
+			20.0f
+		);
 
 }
 
@@ -127,20 +106,6 @@ EntityManager::~EntityManager()
 	//  MATERIALS
 	//
 	for( std::map<std::string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it ){
-		delete (*it).second;
-	}
-
-	//
-	//  MESHES
-	//
-	for( std::map<std::string, Mesh*>::iterator it = m_meshMap.begin(); it != m_meshMap.end(); ++it ){
-		delete (*it).second;
-	}
-
-	//
-	//  TEXTURES
-	//
-	for( std::map<std::string, Texture*>::iterator it = m_textureMap.begin(); it != m_textureMap.end(); ++it ){
 		delete (*it).second;
 	}
 

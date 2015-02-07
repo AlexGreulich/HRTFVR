@@ -79,7 +79,7 @@ void Shader::Update(Transform *transform, Camera *camera, Material* mat)
 
 	glUniformMatrix4fv(m_uniforms[UNIFORM_NORMAL_LOCATION], 1, GL_FALSE, &Normal[0][0]);
 	glUniform3f(m_uniforms[UNIFORM_LIGHT_DIRECTION_LOCATION], 0.0f, -1.0f, 0.0f);
-	glUniform3f(m_uniforms[UNIFORM_LIGHT_POSITION_LOCATION], 0.0f, 3.0f, 0.0f);
+	glUniform3f(m_uniforms[UNIFORM_LIGHT_POSITION_LOCATION], 0.0f, 10.0f, -10.0f);
 
 	glUniform3f(m_uniforms[UNIFORM_LIGHT_SOURCE_DIFFUSE_LOCATION], 0.8f, 0.8f, 0.8f);
 	glUniform3f(m_uniforms[UNIFORM_LIGHT_SOURCE_AMBIENT_LOCATION], 0.1f, 0.1f, 0.05f);
