@@ -2,6 +2,7 @@
 #define HRTFVR_CAMERA_CPP
 
 #include "Camera.h"
+#include <iostream>
 
 Camera::Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar){
 	m_pos = pos;
@@ -47,7 +48,6 @@ void Camera::Pitch(float angle)
 	glm::vec3 right = glm::normalize(glm::cross(m_up, m_forward));
 
 	glm::vec3 fwd = glm::vec3(glm::normalize(glm::rotate(angle, right) * glm::vec4(m_forward, 0.0)));
-	glm::vec3 up = glm::normalize(glm::cross(m_forward, right));
 
 	// restrict camera to go upside-down
 	if( m_up.y < 0 ){
@@ -57,6 +57,9 @@ void Camera::Pitch(float angle)
 			fwd = glm::vec3(0, -1, 0);
 		} 
 	}
+
+	glm::vec3 up = glm::normalize(glm::cross(m_forward, right));
+
 	m_forward = fwd;
 	m_up = up;
 }
