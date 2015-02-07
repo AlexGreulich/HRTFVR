@@ -13,8 +13,8 @@
 #include "Game.h"
 #include "Logger.h"
 
-static const int DISPLAY_WIDTH = 800;
-static const int DISPLAY_HEIGHT = 600;
+static const int DISPLAY_WIDTH = 1920;
+static const int DISPLAY_HEIGHT = 1080;
 
 INITIALIZE_EASYLOGGINGPP
 
@@ -41,7 +41,7 @@ int main(int argc, const char** argv){
 	);
 
     // Setup OpenGL context
-	Display display(800, 600, "HRTFVR");
+	Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "HRTFVR");
 	Game game(&display);
 
 	// bind display pointer to window

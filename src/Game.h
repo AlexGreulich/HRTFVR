@@ -25,8 +25,8 @@ public:
 protected:
 private:
 	const double MOVE_SPEED = 2.0f;
-	const double ROTATE_SPEED = 0.03f;
-	const double PITCH_SPEED = 0.03f;
+	const double ROTATE_SPEED = 0.003f;
+	const double PITCH_SPEED = 0.003f;
 	const double INVERT_Y_AXIS_MULTIPLIER = -1; // 1  ||  -1
 	const int CREATE_TIMEOUT = 40;
 

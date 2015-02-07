@@ -34,7 +34,16 @@ void main()
 {
 	highp vec3 R = reflect(-L, N);
 	highp vec4 diffuse = max(dot(N, L), 0.0) * meshMat.diffuse;
-	highp vec4 specular = pow(max(dot(R, V), 0.0), meshMat.shininess) * meshMat.specular;
+	
+	// this is phong-shading
+	//highp vec4 specular = pow(max(dot(R, V), 0.0), meshMat.shininess) * meshMat.specular;
+	//----
+
+	// this is blinn-phong shading
+	highp vec3 halfWayVector = normalize(L + V);
+	highp vec4 specular = pow(max(dot(halfWayVector, N), 0.0), meshMat.shininess) * meshMat.specular;
+	//----
+
 	highp vec4 ambient = meshMat.ambient * vec4(light.ambient, 1.0);
-	fColor = texture2D(sampler, texCoord0)* (diffuse + ambient + specular);	
+	fColor = texture2D(sampler, texCoord0) * (diffuse + ambient + specular);	
 }

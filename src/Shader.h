@@ -42,10 +42,8 @@ private:
 	static const unsigned int UNIFORM_MAT_EMISSIVE_LOCATION = 12;
 	static const unsigned int UNIFORM_MAT_SHINE_LOCATION = 13;
 
-
 	Shader(const Shader& shader) {}
 
-	std::string LoadShader(const std::string& fileName);
 	void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage);
 	GLuint CreateShader(const std::string& text, unsigned int type);
 
