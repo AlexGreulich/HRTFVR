@@ -139,6 +139,30 @@ src/Camera.cpp.s:
 	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Camera.cpp.s
 .PHONY : src/Camera.cpp.s
 
+src/CubeTexture.o: src/CubeTexture.cpp.o
+.PHONY : src/CubeTexture.o
+
+# target to build an object file
+src/CubeTexture.cpp.o:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/CubeTexture.cpp.o
+.PHONY : src/CubeTexture.cpp.o
+
+src/CubeTexture.i: src/CubeTexture.cpp.i
+.PHONY : src/CubeTexture.i
+
+# target to preprocess a source file
+src/CubeTexture.cpp.i:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/CubeTexture.cpp.i
+.PHONY : src/CubeTexture.cpp.i
+
+src/CubeTexture.s: src/CubeTexture.cpp.s
+.PHONY : src/CubeTexture.s
+
+# target to generate assembly for a file
+src/CubeTexture.cpp.s:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/CubeTexture.cpp.s
+.PHONY : src/CubeTexture.cpp.s
+
 src/Display.o: src/Display.cpp.o
 .PHONY : src/Display.o
 
@@ -187,29 +211,29 @@ src/Entity.cpp.s:
 	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Entity.cpp.s
 .PHONY : src/Entity.cpp.s
 
-src/EntityManager.o: src/EntityManager.cpp.o
-.PHONY : src/EntityManager.o
+src/EntityFactory.o: src/EntityFactory.cpp.o
+.PHONY : src/EntityFactory.o
 
 # target to build an object file
-src/EntityManager.cpp.o:
-	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityManager.cpp.o
-.PHONY : src/EntityManager.cpp.o
+src/EntityFactory.cpp.o:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityFactory.cpp.o
+.PHONY : src/EntityFactory.cpp.o
 
-src/EntityManager.i: src/EntityManager.cpp.i
-.PHONY : src/EntityManager.i
+src/EntityFactory.i: src/EntityFactory.cpp.i
+.PHONY : src/EntityFactory.i
 
 # target to preprocess a source file
-src/EntityManager.cpp.i:
-	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityManager.cpp.i
-.PHONY : src/EntityManager.cpp.i
+src/EntityFactory.cpp.i:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityFactory.cpp.i
+.PHONY : src/EntityFactory.cpp.i
 
-src/EntityManager.s: src/EntityManager.cpp.s
-.PHONY : src/EntityManager.s
+src/EntityFactory.s: src/EntityFactory.cpp.s
+.PHONY : src/EntityFactory.s
 
 # target to generate assembly for a file
-src/EntityManager.cpp.s:
-	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityManager.cpp.s
-.PHONY : src/EntityManager.cpp.s
+src/EntityFactory.cpp.s:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityFactory.cpp.s
+.PHONY : src/EntityFactory.cpp.s
 
 src/EntitySettings.o: src/EntitySettings.cpp.o
 .PHONY : src/EntitySettings.o
@@ -307,6 +331,30 @@ src/Mesh.cpp.s:
 	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Mesh.cpp.s
 .PHONY : src/Mesh.cpp.s
 
+src/Scene.o: src/Scene.cpp.o
+.PHONY : src/Scene.o
+
+# target to build an object file
+src/Scene.cpp.o:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Scene.cpp.o
+.PHONY : src/Scene.cpp.o
+
+src/Scene.i: src/Scene.cpp.i
+.PHONY : src/Scene.i
+
+# target to preprocess a source file
+src/Scene.cpp.i:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Scene.cpp.i
+.PHONY : src/Scene.cpp.i
+
+src/Scene.s: src/Scene.cpp.s
+.PHONY : src/Scene.s
+
+# target to generate assembly for a file
+src/Scene.cpp.s:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Scene.cpp.s
+.PHONY : src/Scene.cpp.s
+
 src/Shader.o: src/Shader.cpp.o
 .PHONY : src/Shader.o
 
@@ -330,6 +378,30 @@ src/Shader.s: src/Shader.cpp.s
 src/Shader.cpp.s:
 	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Shader.cpp.s
 .PHONY : src/Shader.cpp.s
+
+src/SkyboxEntity.o: src/SkyboxEntity.cpp.o
+.PHONY : src/SkyboxEntity.o
+
+# target to build an object file
+src/SkyboxEntity.cpp.o:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/SkyboxEntity.cpp.o
+.PHONY : src/SkyboxEntity.cpp.o
+
+src/SkyboxEntity.i: src/SkyboxEntity.cpp.i
+.PHONY : src/SkyboxEntity.i
+
+# target to preprocess a source file
+src/SkyboxEntity.cpp.i:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/SkyboxEntity.cpp.i
+.PHONY : src/SkyboxEntity.cpp.i
+
+src/SkyboxEntity.s: src/SkyboxEntity.cpp.s
+.PHONY : src/SkyboxEntity.s
+
+# target to generate assembly for a file
+src/SkyboxEntity.cpp.s:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/SkyboxEntity.cpp.s
+.PHONY : src/SkyboxEntity.cpp.s
 
 src/Texture.o: src/Texture.cpp.o
 .PHONY : src/Texture.o
@@ -439,15 +511,18 @@ help:
 	@echo "... src/Camera.o"
 	@echo "... src/Camera.i"
 	@echo "... src/Camera.s"
+	@echo "... src/CubeTexture.o"
+	@echo "... src/CubeTexture.i"
+	@echo "... src/CubeTexture.s"
 	@echo "... src/Display.o"
 	@echo "... src/Display.i"
 	@echo "... src/Display.s"
 	@echo "... src/Entity.o"
 	@echo "... src/Entity.i"
 	@echo "... src/Entity.s"
-	@echo "... src/EntityManager.o"
-	@echo "... src/EntityManager.i"
-	@echo "... src/EntityManager.s"
+	@echo "... src/EntityFactory.o"
+	@echo "... src/EntityFactory.i"
+	@echo "... src/EntityFactory.s"
 	@echo "... src/EntitySettings.o"
 	@echo "... src/EntitySettings.i"
 	@echo "... src/EntitySettings.s"
@@ -460,9 +535,15 @@ help:
 	@echo "... src/Mesh.o"
 	@echo "... src/Mesh.i"
 	@echo "... src/Mesh.s"
+	@echo "... src/Scene.o"
+	@echo "... src/Scene.i"
+	@echo "... src/Scene.s"
 	@echo "... src/Shader.o"
 	@echo "... src/Shader.i"
 	@echo "... src/Shader.s"
+	@echo "... src/SkyboxEntity.o"
+	@echo "... src/SkyboxEntity.i"
+	@echo "... src/SkyboxEntity.s"
 	@echo "... src/Texture.o"
 	@echo "... src/Texture.i"
 	@echo "... src/Texture.s"

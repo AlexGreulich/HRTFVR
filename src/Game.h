@@ -10,7 +10,7 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "Entity.h"
-#include "EntityManager.h"
+#include "EntityFactory.h"
 #include "Loader.h"
 
 class Game
@@ -34,7 +34,7 @@ private:
 	Display* m_display;
 	Camera* m_camera;
 	Shader* m_shader;
-	EntityManager* m_entityManager;
+	EntityFactory* m_entityFactory;
 
 
 	int m_xpos;

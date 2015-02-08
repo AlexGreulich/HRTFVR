@@ -17,7 +17,7 @@ m_camera(new Camera(
 	100.0f
 )),
 m_loader(new Loader()),
-m_entityManager(new EntityManager(&m_timer, m_loader))
+m_entityFactory(new EntityFactory(&m_timer, m_loader))
 {
 	m_shader = new Shader(
 		"resources/shaders/basic.vertex",
@@ -36,7 +36,7 @@ void Game::Update(){
 	// bind & update shader
 	m_shader->Bind();
 
-	m_entityManager->Render(m_shader, m_camera);
+	m_entityFactory->Render(m_shader, m_camera);
 
 	// update timer
 	m_timer = glfwGetTime();
@@ -75,7 +75,7 @@ void Game::HandleKey(int key, int scancode, int action, int mods){
 		}
 		glm::vec3 fwd = m_camera->GetForward();
 		fwd.x = fwd.x * 20;
-		m_entityManager->CreateEntity("monkey", fwd, true);
+		m_entityFactory->CreateEntity("monkey", fwd);
 		m_createTimer = CREATE_TIMEOUT;
 	}
 
@@ -104,7 +104,7 @@ void Game::HandleMouse(double xpos, double ypos){
 
 Game::~Game()
 {
-	delete m_entityManager;
+	delete m_entityFactory;
 	delete m_camera;
 	delete m_shader;
 	

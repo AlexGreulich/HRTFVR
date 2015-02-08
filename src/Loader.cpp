@@ -63,7 +63,6 @@ bool Loader::IsConfigContext(std::string* line){
 	for( unsigned int i = 0; i < sizeof(m_configurationOptions) / sizeof(m_configurationOptions[0]); i++ ){
 		// 0 means equal (Oo)
 		if( 0 == m_configurationOptions[i].compare(*line) ){
-			std::cout << *line << std::endl;
 			return true;
 		} 
 	}
@@ -73,6 +72,11 @@ bool Loader::IsConfigContext(std::string* line){
 void Loader::LoadTexture(std::string pathToFile){
 	LOG(DEBUG) << "Loading texture: " << pathToFile;
 	m_textureMap[pathToFile] = new Texture(pathToFile);
+}
+
+void Loader::LoadCubeTexture(std::string pathToFile){
+	LOG(DEBUG) << "Loading CubeMap texture: " << pathToFile;
+	m_cubeTextureMap[pathToFile] = new CubeTexture(pathToFile);
 }
 
 void Loader::LoadMesh(std::string pathToFile){

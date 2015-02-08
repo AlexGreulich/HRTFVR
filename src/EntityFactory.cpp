@@ -1,11 +1,11 @@
 #ifndef HRTFVR_ENTITY_MANAGER_CPP
 #define HRTFVR_ENTITY_MANAGER_CPP
 
-#include "EntityManager.h"
+#include "EntityFactory.h"
 #include <iostream>
 #include "Logger.h"
 
-EntityManager::EntityManager(double* timer, Loader* loader):
+EntityFactory::EntityFactory(double* timer, Loader* loader):
 m_loader(loader),
 m_entitySettings(),
 m_timer(timer)
@@ -14,7 +14,7 @@ m_timer(timer)
 	CreateEntity("terrain_mud", glm::vec3(0, -4.0f, 0));
 }
 
-void EntityManager::CreateEntity(const std::string name, glm::vec3 position, bool rotate){
+void EntityFactory::CreateEntity(const std::string name, glm::vec3 position){
 
 	EntitySettings::Setting setting = m_entitySettings.Get(name);
 	
@@ -39,27 +39,17 @@ void EntityManager::CreateEntity(const std::string name, glm::vec3 position, boo
 		*m_timer
 	);
 
-	if (rotate){
-		entity->Rotate(glm::vec3(10.0f, 5.0f, 0.0f));
-	}
-
 	m_entities.push_back(entity);
 
 }
 
-void EntityManager::CreateEntity(const std::string name, glm::vec3 position){
-	
-	CreateEntity(name, position, false);
-
-}
-
-void EntityManager::Render(Shader* shader, Camera* camera){
+void EntityFactory::Render(Shader* shader, Camera* camera){
 	for (std::vector<Entity*>::iterator it = m_entities.begin(); it != m_entities.end(); ++it){
 		
 		shader->Update(
 			(*it)->GetTransform(),
 			camera,
-			(*it)->getMaterial()
+			(*it)->GetMaterial()
 		);
 
 		(*it)->BindTexture();
@@ -67,7 +57,7 @@ void EntityManager::Render(Shader* shader, Camera* camera){
 	}
 }
 
-void EntityManager::SetupMaterials(){
+void EntityFactory::SetupMaterials(){
 
 	materials["cube"] = new Material(glm::vec4(0.5f), glm::vec4(0.2f), glm::vec4(0.7f), glm::vec4(0.1f), 5.0f);
 	materials["monkey"] = 
@@ -100,7 +90,7 @@ void EntityManager::SetupMaterials(){
 
 }
 
-EntityManager::~EntityManager()
+EntityFactory::~EntityFactory()
 {
 	//
 	//  MATERIALS

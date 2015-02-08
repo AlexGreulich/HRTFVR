@@ -4,6 +4,7 @@
 #include "Logger.h"
 #include "Mesh.h"
 #include "Texture.h"
+#include "CubeTexture.h"
 #include "Material.h"
 #include <string>
 #include <sstream>
@@ -22,6 +23,7 @@ public:
 	// loader
 	void LoadTexture(std::string pathToFile);
 	void LoadMesh(std::string pathToFile);
+	void LoadCubeTexture(std::string pathToFile);
 
 	// exists 
 	bool MeshExists(std::string key);
@@ -40,6 +42,7 @@ protected:
 
 	std::map<std::string, Mesh*> m_meshMap;
 	std::map<std::string, Texture*> m_textureMap;
+	std::map<std::string, CubeTexture*> m_cubeTextureMap;
 	std::map<std::string, Material*> materials;
 
 	// utility

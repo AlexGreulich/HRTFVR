@@ -7,14 +7,21 @@
 class Texture
 {
 public:
+	Texture();
 	Texture(const std::string fileName);
-
 	void Bind();
-
 	virtual ~Texture();
+	void LoadTexture(std::string fileName);
+
 protected:
-private:
+	void CreateTexture();
+	void DestroyTextureData();
+
 	GLuint m_texture;
+	int m_width;
+	int m_height;
+	unsigned char* m_data;
+	
 };
 
 #endif

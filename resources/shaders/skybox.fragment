@@ -1,0 +1,10 @@
+#version 300 es
+
+in highp vec3 textureCoords;
+out highp vec4 out_Color;
+
+uniform highp samplerCube cubeMap;
+
+void main(void){
+    out_Color = texture(cubeMap, textureCoords);
+}

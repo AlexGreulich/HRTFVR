@@ -10,17 +10,16 @@
 #include <vector>
 #include <map>
 
-class EntityManager
+class EntityFactory
 {
 public:
-	EntityManager(double* timer, Loader* loader);
+	EntityFactory(double* timer, Loader* loader);
 	void SetupMaterials();
 
-	void CreateEntity(const std::string name, glm::vec3 position, bool rotate);
 	void CreateEntity(const std::string name, glm::vec3 position);
 
 	void Render(Shader* shader, Camera* camera);
-	virtual ~EntityManager();
+	virtual ~EntityFactory();
 
 protected:
 private:
