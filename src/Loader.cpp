@@ -70,17 +70,17 @@ bool Loader::IsConfigContext(std::string* line){
 }
 
 void Loader::LoadTexture(std::string pathToFile){
-	LOG(DEBUG) << "Loading texture: " << pathToFile;
+	LOG(DEBUG) << "[PRELOAD] Loading texture: " << pathToFile;
 	m_textureMap[pathToFile] = new Texture(pathToFile);
 }
 
 void Loader::LoadCubeTexture(std::string pathToFile){
-	LOG(DEBUG) << "Loading CubeMap texture: " << pathToFile;
+	LOG(DEBUG) << "[PRELOAD] Loading CubeMap texture: " << pathToFile;
 	m_cubeTextureMap[pathToFile] = new CubeTexture(pathToFile);
 }
 
 void Loader::LoadMesh(std::string pathToFile){
-	LOG(DEBUG) << "Loading mesh: " << pathToFile;
+	LOG(DEBUG) << "[PRELOAD] Loading mesh: " << pathToFile;
 	m_meshMap[pathToFile] = new Mesh(pathToFile);
 }
 

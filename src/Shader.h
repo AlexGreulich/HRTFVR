@@ -14,7 +14,7 @@ public:
 
 	void Bind();
 	void Update(Transform *transform, Camera *camera, Material* mat);
-
+	void Update(glm::mat4 model, glm::mat4 view, glm::mat4 projection);
 	virtual ~Shader();
 protected:
 private:

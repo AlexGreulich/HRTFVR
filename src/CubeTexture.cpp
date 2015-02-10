@@ -26,12 +26,14 @@ Texture(){
 	// 
 	for( int i = 0; i < 6; i++ ){
 
+		std::string filePath = path + std::to_string(i) + std::string(".png");
+
 		// LoadTexture loads the texture file
 		// this method sets:
 		// - m_data
 		// - m_width
 		// - m_height
-		Texture::LoadTexture( path.append( std::to_string(i) + std::string(".png") ) );
+		Texture::LoadTexture( filePath );
 		
 		glTexImage2D(
 			GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
@@ -45,6 +47,8 @@ Texture(){
 			m_data
 		);
 
+		DestroyTextureData();
+
 	}
 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -52,8 +56,9 @@ Texture(){
 
 }
 
-void CubeTexture::DestroyTextureData(){
-	stbi_image_free(m_data);
+void CubeTexture::Bind(){
+	LOG(DEBUG) << "using TEXTURE CUBE_MAP";
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture);
 }
 
 CubeTexture::~CubeTexture(){

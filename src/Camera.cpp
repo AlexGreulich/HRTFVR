@@ -19,6 +19,17 @@ glm::mat4 Camera::getView(){
 	return glm::lookAt(m_pos, m_pos + m_forward, m_up); 
 }
 
+glm::mat4 Camera::getViewWithoutTranslation(){
+	glm::mat4 view = glm::lookAt(m_pos, m_pos + m_forward, m_up);
+
+	// reset translation
+	view[3][0] = 0;
+	view[3][1] = 0;
+	view[3][2] = 0;
+
+	return view;
+}
+
 glm::mat4 Camera::getProjection(){
 	return m_projection;
 }

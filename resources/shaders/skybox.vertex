@@ -3,12 +3,13 @@
 in vec3 position;
 out vec3 textureCoords;
 
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
+uniform mat4 modelMat;
+uniform mat4 viewMat;
+uniform mat4 projectionMat;
 
 void main(void){
 	
-	gl_Position = projectionMatrix * viewMatrix * vec4(position, 1.0); 
+	gl_Position = projectionMat * viewMat * modelMat * vec4(position, 1.0); 
 	textureCoords = position;
 	
 }

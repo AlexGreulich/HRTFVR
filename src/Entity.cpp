@@ -56,7 +56,7 @@ Transform* Entity::GetTransform(){
 }
 
 Material* Entity::GetMaterial(){
-	return this->m_material;
+	return m_material;
 }
 
 Texture* Entity::GetTexture(){

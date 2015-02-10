@@ -40,6 +40,8 @@ enum MeshBufferPositions
 class Mesh
 {
 public:
+	Mesh();
+	Mesh(std::vector<GLfloat>& positions);
 	Mesh(const std::string& fileName);
 	void Draw();
 
@@ -49,6 +51,7 @@ protected:
 	static const unsigned int NUM_BUFFERS = 4;
 	void InitMesh(const IndexedModel& model);
 
+	bool m_isSkybox;
 	GLuint m_vertexArrayObject;
 	GLuint m_vertexArrayBuffers[NUM_BUFFERS];
 	unsigned int m_numIndices;

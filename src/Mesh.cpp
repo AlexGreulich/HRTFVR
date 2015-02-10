@@ -8,7 +8,27 @@
 #include <iostream>
 #include <stdlib.h>
 
-Mesh::Mesh(const std::string& fileName)
+Mesh::Mesh(){}
+
+Mesh::Mesh(std::vector<GLfloat>& positions):
+m_isSkybox(true)
+{
+	m_numIndices = positions.size();
+
+	glGenVertexArrays(1, &m_vertexArrayObject);
+	glBindVertexArray(m_vertexArrayObject);
+	glGenBuffers(1, m_vertexArrayBuffers);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * positions.size(), &positions[0], GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindVertexArray(0);
+}
+
+Mesh::Mesh(const std::string& fileName):
+m_isSkybox(false)
 {
 	InitMesh(OBJModel(fileName).ToIndexedModel());
 }
@@ -45,13 +65,25 @@ void Mesh::InitMesh(const IndexedModel& model)
 void Mesh::Draw()
 {
 	glBindVertexArray(m_vertexArrayObject);
-	glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+
+	if(m_isSkybox){
+		glDrawArrays(GL_TRIANGLES, 0, (m_numIndices/3) );
+	}else{
+		glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
+	}
+
+	glBindVertexArray(0);	
+
 }
 
 Mesh::~Mesh()
 {
-	glDeleteBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
+	if( m_isSkybox ){
+		glDeleteBuffers(1, 0);
+	}else{
+		glDeleteBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
+
+	}
 	glDeleteVertexArrays(1, &m_vertexArrayObject);
 }
 

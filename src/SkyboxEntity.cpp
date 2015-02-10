@@ -3,54 +3,27 @@
 
 #include "SkyboxEntity.h"
 
-SkyboxEntity::SkyboxEntity(){
+SkyboxEntity::SkyboxEntity()
+{
 
-	float[108] VERTICES = {        
-	    -m_size,  m_size, -m_size,
-	    -m_size, -m_size, -m_size,
-	    m_size, -m_size, -m_size,
-	     m_size, -m_size, -m_size,
-	     m_size,  m_size, -m_size,
-	    -m_size,  m_size, -m_size,
+	m_mesh = new Mesh(std::string("resources/meshes/skybox500.obj"));
 
-	    -m_size, -m_size,  m_size,
-	    -m_size, -m_size, -m_size,
-	    -m_size,  m_size, -m_size,
-	    -m_size,  m_size, -m_size,
-	    -m_size,  m_size,  m_size,
-	    -m_size, -m_size,  m_size,
+	SetTexture( new CubeTexture("resources/textures/skybox/") );
 
-	     m_size, -m_size, -m_size,
-	     m_size, -m_size,  m_size,
-	     m_size,  m_size,  m_size,
-	     m_size,  m_size,  m_size,
-	     m_size,  m_size, -m_size,
-	     m_size, -m_size, -m_size,
+	SetMaterial(new Material(
+		glm::vec4(0.2f, 0.2f, 0.2f, 1.0f),
+		glm::vec4(0.8f, 0.8f, 0.8f, 1.0f),
+		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
+		glm::vec4(1.0f),
+		20.0f
+	));
 
-	    -m_size, -m_size,  m_size,
-	    -m_size,  m_size,  m_size,
-	     m_size,  m_size,  m_size,
-	     m_size,  m_size,  m_size,
-	     m_size, -m_size,  m_size,
-	    -m_size, -m_size,  m_size,
+}
 
-	    -m_size,  m_size, -m_size,
-	     m_size,  m_size, -m_size,
-	     m_size,  m_size,  m_size,
-	     m_size,  m_size,  m_size,
-	    -m_size,  m_size,  m_size,
-	    -m_size,  m_size, -m_size,
-
-	    -m_size, -m_size, -m_size,
-	    -m_size, -m_size,  m_size,
-	     m_size, -m_size, -m_size,
-	     m_size, -m_size, -m_size,
-	    -m_size, -m_size,  m_size,
-	     m_size, -m_size,  m_size
-	};
-
-	CubeTexture texture();
-
+void SkyboxEntity::Draw(){
+	glFrontFace( GL_CW );
+	m_mesh->Draw();
+	glFrontFace( GL_CCW );
 }
 
 SkyboxEntity::~SkyboxEntity(){

@@ -6,12 +6,14 @@
 #include <map>
 #include "Display.h"
 #include "Shader.h"
+#include "ShaderFactory.h"
 #include "Transform.h"
 #include "Texture.h"
 #include "Mesh.h"
 #include "Entity.h"
 #include "EntityFactory.h"
 #include "Loader.h"
+#include "Scene.h"
 
 class Game
 {
@@ -33,8 +35,7 @@ private:
 	Loader* m_loader;
 	Display* m_display;
 	Camera* m_camera;
-	Shader* m_shader;
-	EntityFactory* m_entityFactory;
+	Scene* m_scene;
 
 
 	int m_xpos;

@@ -379,6 +379,30 @@ src/Shader.cpp.s:
 	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Shader.cpp.s
 .PHONY : src/Shader.cpp.s
 
+src/ShaderFactory.o: src/ShaderFactory.cpp.o
+.PHONY : src/ShaderFactory.o
+
+# target to build an object file
+src/ShaderFactory.cpp.o:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/ShaderFactory.cpp.o
+.PHONY : src/ShaderFactory.cpp.o
+
+src/ShaderFactory.i: src/ShaderFactory.cpp.i
+.PHONY : src/ShaderFactory.i
+
+# target to preprocess a source file
+src/ShaderFactory.cpp.i:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/ShaderFactory.cpp.i
+.PHONY : src/ShaderFactory.cpp.i
+
+src/ShaderFactory.s: src/ShaderFactory.cpp.s
+.PHONY : src/ShaderFactory.s
+
+# target to generate assembly for a file
+src/ShaderFactory.cpp.s:
+	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/ShaderFactory.cpp.s
+.PHONY : src/ShaderFactory.cpp.s
+
 src/SkyboxEntity.o: src/SkyboxEntity.cpp.o
 .PHONY : src/SkyboxEntity.o
 
@@ -541,6 +565,9 @@ help:
 	@echo "... src/Shader.o"
 	@echo "... src/Shader.i"
 	@echo "... src/Shader.s"
+	@echo "... src/ShaderFactory.o"
+	@echo "... src/ShaderFactory.i"
+	@echo "... src/ShaderFactory.s"
 	@echo "... src/SkyboxEntity.o"
 	@echo "... src/SkyboxEntity.i"
 	@echo "... src/SkyboxEntity.s"

@@ -104,6 +104,14 @@ void Shader::Update(Transform *transform, Camera *camera, Material* mat)
 
 }
 
+void Shader::Update(glm::mat4 model, glm::mat4 view, glm::mat4 projection){
+
+	glUniformMatrix4fv(m_uniforms[UNIFORM_MODEL_MATRIX_LOCATION], 1, GL_FALSE, &model[0][0]);
+	glUniformMatrix4fv(m_uniforms[UNIFORM_VIEW_MATRIX_LOCATION], 1, GL_FALSE, &view[0][0]);
+	glUniformMatrix4fv(m_uniforms[UNIFORM_PROJ_MATRIX_LOCATION], 1, GL_FALSE, &projection[0][0]);	
+
+}
+
 void Shader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage)
 {
 	GLint success = 0;

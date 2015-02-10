@@ -14,6 +14,7 @@ public:
 	glm::mat4 GetViewProjection();
 	glm::mat4 getView();
 	glm::mat4 getProjection();
+	glm::mat4 getViewWithoutTranslation();
 	glm::vec3 GetForward();
 	void MoveForward(float amt);
 	void MoveBack(float amt);

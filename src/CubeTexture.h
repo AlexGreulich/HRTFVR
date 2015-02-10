@@ -8,10 +8,10 @@
 class CubeTexture : public Texture{
 public:
 	CubeTexture(std::string pathToFile);
+	void Bind();
 	~CubeTexture();
 protected:
 	void CreateTexture();
-	void DestroyTextureData();
 };
 
 #endif

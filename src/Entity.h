@@ -44,10 +44,10 @@ public:
 
 	virtual ~Entity();
 protected:
-private:
 	Texture* m_texture;
 	Mesh* m_mesh;
 	Transform m_transform;
+	std::string m_shader;
 	
 	double m_timer;
 	Material* m_material;
