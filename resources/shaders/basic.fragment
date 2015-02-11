@@ -1,22 +1,24 @@
 #version 300 es
 
-in highp vec3 N;
-in highp vec3 V;
-in highp vec3 L;
+in highp vec3 vertexPosition;
+smooth in highp vec3 N;
 in highp vec2 texCoord0;
 in highp vec3 normal0;
 
 out highp vec4 fColor;
 
-uniform highp sampler2D sampler;
-uniform highp vec3 lightDirection;
-uniform highp vec3 lightPosition;
+uniform highp sampler2D texSampler0;
+uniform highp sampler2D texSampler1;
+uniform highp sampler2D texSampler2;
+uniform highp sampler2D texSampler3;
 
 struct Lightsource
 {
-	highp vec3 diffuse;
-	highp vec3 ambient;
-	highp vec3 specular;
+	highp vec3 position;
+	highp vec3 direction;
+	highp vec3 attentuation;
+	highp vec3 color;
+
 };
 struct Material
 {
@@ -32,18 +34,21 @@ uniform Lightsource light;
 
 void main()
 {
-	highp vec3 R = reflect(-L, N);
-	highp vec4 diffuse = max(dot(N, L), 0.0) * meshMat.diffuse;
+	highp vec3 lightDirection = normalize(light.position - vertexPosition);
+	highp vec3 viewDirection = normalize(-vertexPosition);
+	highp vec3 halfwayVector = normalize(lightDirection);
 	
-	// this is phong-shading
-	//highp vec4 specular = pow(max(dot(R, V), 0.0), meshMat.shininess) * meshMat.specular;
-	//----
+	highp float diffuseComponent = max(dot(N, lightDirection), 0.0);
 
-	// this is blinn-phong shading
-	highp vec3 halfWayVector = normalize(L + V);
-	highp vec4 specular = pow(max(dot(halfWayVector, N), 0.0), meshMat.shininess) * meshMat.specular;
-	//----
+	highp float specularComponent = pow(max(dot(halfwayVector, N), 0.0), meshMat.shininess);
 
-	highp vec4 ambient = meshMat.ambient * vec4(light.ambient, 1.0);
-	fColor = texture2D(sampler, texCoord0) * (diffuse + ambient + specular);	
+	highp vec4 texture = texture2D(texSampler0, texCoord0) + texture2D(texSampler1, texCoord0);
+
+	fColor = (
+		//meshMat.ambient
+		//+
+		diffuseComponent * meshMat.diffuse
+		//+
+		//specularComponent * meshMat.specular
+	);	
 }

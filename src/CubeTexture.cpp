@@ -26,7 +26,7 @@ Texture(){
 	// 
 	for( int i = 0; i < 6; i++ ){
 
-		std::string filePath = path + std::to_string(i) + std::string(".png");
+		std::string filePath = path + std::to_string(i) + std::string(".tga");
 
 		// LoadTexture loads the texture file
 		// this method sets:

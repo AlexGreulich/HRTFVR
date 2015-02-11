@@ -11,7 +11,6 @@
 
 #define PRELOAD_FILE_PATH "resources/preload.conf"
 
-
 class Loader{
 
 public:
@@ -23,6 +22,7 @@ public:
 	// loader
 	void LoadTexture(std::string pathToFile);
 	void LoadMesh(std::string pathToFile);
+	void LoadMaterial(std::string pathToFile);
 	void LoadCubeTexture(std::string pathToFile);
 
 	// exists 
@@ -38,12 +38,19 @@ public:
 	virtual ~Loader();
 
 protected:
-	std::string m_configurationOptions[2] = { "textures", "meshes" };
+
+	// preloader config options
+	std::string m_configurationOptions[4] = {
+		"textures",
+		"meshes",
+		"skyboxes",
+		"materials"
+	};
 
 	std::map<std::string, Mesh*> m_meshMap;
 	std::map<std::string, Texture*> m_textureMap;
 	std::map<std::string, CubeTexture*> m_cubeTextureMap;
-	std::map<std::string, Material*> materials;
+	std::map<std::string, Material*> m_materialMap;
 
 	// utility
 	bool IsConfigContext(std::string* configLine);

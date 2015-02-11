@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "Material.h"
 #include "Camera.h"
+#include "Light.h"
 #include "SkyboxEntity.h"
 #include "ShaderFactory.h"
 #include <vector>
@@ -21,6 +22,7 @@ protected:
 	double* m_timer;
 	Loader* m_loader;
 	Camera* m_camera;
+	Light* m_light;
 	std::vector<Entity*> m_entities;
 	SkyboxEntity* m_skybox;
 };

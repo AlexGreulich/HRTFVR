@@ -211,30 +211,6 @@ src/Entity.cpp.s:
 	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/Entity.cpp.s
 .PHONY : src/Entity.cpp.s
 
-src/EntityFactory.o: src/EntityFactory.cpp.o
-.PHONY : src/EntityFactory.o
-
-# target to build an object file
-src/EntityFactory.cpp.o:
-	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityFactory.cpp.o
-.PHONY : src/EntityFactory.cpp.o
-
-src/EntityFactory.i: src/EntityFactory.cpp.i
-.PHONY : src/EntityFactory.i
-
-# target to preprocess a source file
-src/EntityFactory.cpp.i:
-	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityFactory.cpp.i
-.PHONY : src/EntityFactory.cpp.i
-
-src/EntityFactory.s: src/EntityFactory.cpp.s
-.PHONY : src/EntityFactory.s
-
-# target to generate assembly for a file
-src/EntityFactory.cpp.s:
-	$(MAKE) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/src/EntityFactory.cpp.s
-.PHONY : src/EntityFactory.cpp.s
-
 src/EntitySettings.o: src/EntitySettings.cpp.o
 .PHONY : src/EntitySettings.o
 
@@ -544,9 +520,6 @@ help:
 	@echo "... src/Entity.o"
 	@echo "... src/Entity.i"
 	@echo "... src/Entity.s"
-	@echo "... src/EntityFactory.o"
-	@echo "... src/EntityFactory.i"
-	@echo "... src/EntityFactory.s"
 	@echo "... src/EntitySettings.o"
 	@echo "... src/EntitySettings.i"
 	@echo "... src/EntitySettings.s"

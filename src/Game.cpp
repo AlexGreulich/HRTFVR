@@ -3,6 +3,7 @@
 
 #define GLM_FORCE_RADIANS
 #include "Game.h"
+#include "Logger.h"
 #include <glm/glm.hpp>
 #include <iostream>
 
@@ -40,25 +41,32 @@ void Game::Update(){
  */
 void Game::HandleKey(int key, int scancode, int action, int mods){
 	
+	double speed = MOVE_SPEED;
+
 	if (key == GLFW_KEY_ESCAPE){
 		glfwSetWindowShouldClose(m_display->getWindow(), 1);
 		return;
 	}
 
+	if( glfwGetKey(m_display->getWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ){
+		speed = MOVE_SPEED * 4;
+	}
+
 	if (glfwGetKey(m_display->getWindow(), GLFW_KEY_A) == GLFW_PRESS){
-		m_camera->MoveLeft(m_deltaTime * MOVE_SPEED);
+
+		m_camera->MoveLeft(m_deltaTime * speed);
 	}
 
 	if (glfwGetKey(m_display->getWindow(), GLFW_KEY_D) == GLFW_PRESS){
-		m_camera->MoveRight(m_deltaTime * MOVE_SPEED);
+		m_camera->MoveRight(m_deltaTime * speed);
 	}
 
 	if (glfwGetKey(m_display->getWindow(), GLFW_KEY_W) == GLFW_PRESS){
-		m_camera->MoveForward(m_deltaTime * MOVE_SPEED);
+		m_camera->MoveForward(m_deltaTime * speed);
 	}
 
 	if (glfwGetKey(m_display->getWindow(), GLFW_KEY_S) == GLFW_PRESS){
-		m_camera->MoveBack(m_deltaTime * MOVE_SPEED);
+		m_camera->MoveBack(m_deltaTime * speed);
 	}
 
 	if ( glfwGetKey(m_display->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS ){
@@ -71,7 +79,7 @@ void Game::HandleKey(int key, int scancode, int action, int mods){
  * we need that to update the keys every frame
  */
 void Game::HandleKeys(){
-	HandleKey(0, 0, 0, 0);
+	HandleKey(0, 0, 0, glfwGetKey(m_display->getWindow(), GLFW_MOD_SHIFT));
 }
 
 void Game::HandleMouse(double xpos, double ypos){

@@ -15,15 +15,47 @@ m_material(mat),
 m_timer(baseTimer),
 m_transform()
 {
+	m_textures.push_back(texture);
 	m_transform.SetPos(position);
+}
+
+Entity::Entity(Mesh* mesh, Material* mat, glm::vec3 position, double baseTimer):
+m_texture(new Texture()),
+m_mesh(mesh),
+m_material(mat),
+m_timer(baseTimer),
+m_transform()
+{
+	m_transform.SetPos(position);
+}
+
+Entity::Entity(
+	std::vector<Texture*> textures,
+	Mesh* mesh,
+	Material* mat,
+	glm::vec3 position,
+	double baseTimer):
+m_texture(textures.front()),
+m_mesh(mesh),
+m_material(mat),
+m_timer(baseTimer),
+m_transform()
+{
+	m_textures = textures;
 }
 
 void Entity::Draw(){
 	m_mesh->Draw();
 }
 
-void Entity::BindTexture(){
-	m_texture->Bind();
+void Entity::BindTexture(Shader* shader){
+
+	for( unsigned int i = 0; i < m_textures.size(); i++ ){
+		glActiveTexture(GL_TEXTURE0+i);
+		shader->UpdateTextureSampler( Shader::UNIFORM_TEX_SAMPLER_0 + i, i );
+		glBindTexture(GL_TEXTURE_2D, m_textures[i]->GetId());		
+	}
+
 }
 
 void Entity::SetPosition(glm::vec3 pos){

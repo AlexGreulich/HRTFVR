@@ -2,7 +2,7 @@
 #define HRTFVR_LOADER_CPP
 
 #include "Loader.h"
-
+#include <sstream>
 
 Loader::Loader(){
 	Preload();
@@ -49,10 +49,12 @@ void Loader::Preload(){
 		}else{
 			if( 0 == configContext.compare("textures") ){
 				LoadTexture(line);
-			}
-
-			if( 0 == configContext.compare("meshes") ){
+			}else if( 0 == configContext.compare("meshes") ){
 				LoadMesh(line);
+			}else if( 0 == configContext.compare("skyboxes") ){
+				LoadCubeTexture(line);
+			}else if( 0 == configContext.compare("materials") ){
+				LoadMaterial(line);
 			}
 		}
 	}
@@ -84,6 +86,71 @@ void Loader::LoadMesh(std::string pathToFile){
 	m_meshMap[pathToFile] = new Mesh(pathToFile);
 }
 
+void Loader::LoadMaterial(std::string pathToFile){
+	LOG(DEBUG) << "[PRELOAD] Loading material: " << pathToFile;
+	
+	std::string materialFile = LoadFileContent(pathToFile);
+
+	float emissive;
+	float shiny;
+	float density;
+	glm::vec4 ambient;
+	glm::vec4 diffuse;
+	glm::vec4 specular;
+
+	std::string mtlname;
+
+	std::stringstream materialStream(materialFile);
+	std::string line;
+
+	char removeCharacterList[] = " []";
+
+	while( std::getline(materialStream, line, '\n') ){
+
+		// ignore empty and comments
+		if(line.empty() || line.find("#") == 0 ){
+			continue;
+		}
+
+		std::string token; 
+		std::stringstream stream(line);
+
+		stream >> token;
+
+		if( token.compare("e") == 0 ){
+			stream >> emissive;
+		}else if( token.compare("Ka") == 0 ){
+			stream >> ambient.r >> ambient.g >> ambient.b;
+		}else if( token.compare("Kd") == 0 ){
+			stream >> diffuse.r >> diffuse.g >> diffuse.b;
+		}else if( token.compare("Ks") == 0 ){
+			stream >> specular.r >> specular.g >> specular.b;
+		}else if( token.compare("Ns") == 0 ){
+			stream >> shiny;
+		}else if( token.compare("newmtl") ){
+			stream >> mtlname;
+		}else if( token.compare("Ni") == 0 ){
+			stream >> density;
+		}else if( stream.fail() == true ){
+			LOG(DEBUG) << "unset token:" << token; 
+		}
+	}
+
+	Material* mat = new Material();
+	
+	mat->SetName(mtlname);
+
+	mat->SetDiffuse(diffuse);
+	mat->SetAmbient(ambient);
+	mat->SetSpecular(specular);
+	mat->SetEmissive(glm::vec4(emissive));
+	mat->SetDensity(density);
+	mat->SetShiny(shiny);
+
+	m_materialMap[pathToFile] = mat;
+
+}
+
 Mesh* Loader::GetMesh(std::string key){
 	if( m_meshMap.find(key) != m_meshMap.end() ){
 		return m_meshMap.at(key);
@@ -101,7 +168,11 @@ Texture* Loader::GetTexture(std::string key){
 }
 
 Material* Loader::GetMaterial(std::string key){
+	if( m_materialMap.find(key) != m_materialMap.end() ){
+		return m_materialMap.at(key);
+	}
 
+	LOG(ERROR) << "Material " << key << " not found";
 }
 
 bool Loader::MeshExists(std::string key){

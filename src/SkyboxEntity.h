@@ -10,6 +10,7 @@ class SkyboxEntity : public Entity{
 
 public:
 	SkyboxEntity();
+	SkyboxEntity(Mesh* mesh, CubeTexture* cubeTexture);
 	void Draw();
 	virtual ~SkyboxEntity();
 

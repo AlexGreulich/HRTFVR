@@ -11,7 +11,6 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "Entity.h"
-#include "EntityFactory.h"
 #include "Loader.h"
 #include "Scene.h"
 

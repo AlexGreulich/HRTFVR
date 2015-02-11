@@ -9,6 +9,8 @@ class Texture
 public:
 	Texture();
 	Texture(const std::string fileName);
+
+	GLuint GetId();
 	void Bind();
 	virtual ~Texture();
 	void LoadTexture(std::string fileName);

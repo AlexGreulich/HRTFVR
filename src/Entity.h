@@ -9,6 +9,8 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include <vector>
+#include "Shader.h"
 
 
 class Entity
@@ -19,6 +21,13 @@ public:
 	Entity();
 	
 	Entity(
+		Mesh* mesh,
+		Material* mat,
+		glm::vec3 position,
+		double baseTimer
+	);
+
+	Entity(
 		Texture* texture,
 		Mesh* mesh,
 		Material* mat,
@@ -26,8 +35,16 @@ public:
 		double baseTimer
 	);
 
+	Entity(
+		std::vector<Texture*> textures,
+		Mesh* mesh,
+		Material* mat,
+		glm::vec3 position,
+		double baseTimer
+	);
+
 	void Draw();
-	void BindTexture();
+	void BindTexture(Shader* shader);
 
 	void SetPosition(glm::vec3 position);
 	void SetTexture(Texture* texture);
@@ -45,6 +62,7 @@ public:
 	virtual ~Entity();
 protected:
 	Texture* m_texture;
+	std::vector<Texture*> m_textures;
 	Mesh* m_mesh;
 	Transform m_transform;
 	std::string m_shader;

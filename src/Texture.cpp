@@ -48,8 +48,13 @@ void Texture::DestroyTextureData(){
 	stbi_image_free(m_data);
 }
 
+GLuint Texture::GetId(){
+	return m_texture;
+}
+
 void Texture::Bind()
 {
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 }
 

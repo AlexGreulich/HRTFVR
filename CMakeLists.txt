@@ -11,6 +11,7 @@ set(JSON_ROOT_DIR ${CMAKE_SOURCE_DIR}/include/rapidjson)
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(PkgConfig REQUIRED)
+find_package(PkgConfig REQUIRED)
 
 #find_package(GLM REQUIRED)
 pkg_search_module(GLFW REQUIRED glfw3)

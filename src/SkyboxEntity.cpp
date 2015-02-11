@@ -5,20 +5,16 @@
 
 SkyboxEntity::SkyboxEntity()
 {
-
-	m_mesh = new Mesh(std::string("resources/meshes/skybox500.obj"));
-
-	SetTexture( new CubeTexture("resources/textures/skybox/") );
-
-	SetMaterial(new Material(
-		glm::vec4(0.2f, 0.2f, 0.2f, 1.0f),
-		glm::vec4(0.8f, 0.8f, 0.8f, 1.0f),
-		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		glm::vec4(1.0f),
-		20.0f
-	));
-
+	SetMesh(new Mesh(std::string("resources/meshes/skybox500.obj")));
+	SetTexture( new CubeTexture("resources/textures/skybox_mir/") );
 }
+
+SkyboxEntity::SkyboxEntity(Mesh* mesh, CubeTexture* cubeTexture)
+{
+	SetMesh(mesh);
+	SetTexture(cubeTexture);
+}
+
 
 void SkyboxEntity::Draw(){
 	glFrontFace( GL_CW );
