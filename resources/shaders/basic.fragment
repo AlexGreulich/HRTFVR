@@ -44,11 +44,11 @@ void main()
 
 	highp vec4 texture = texture2D(texSampler0, texCoord0) + texture2D(texSampler1, texCoord0);
 
-	fColor = (
-		//meshMat.ambient
-		//+
+	fColor = texture * (
+		meshMat.ambient
+		+
 		diffuseComponent * meshMat.diffuse
-		//+
-		//specularComponent * meshMat.specular
+		+
+		specularComponent * meshMat.specular
 	);	
 }

@@ -2,6 +2,7 @@
 #define HRTFVR_SCENE_H
 
 #include "Logger.h"
+#include "Terrain.h"
 #include "Loader.h"
 #include "Entity.h"
 #include "Material.h"
