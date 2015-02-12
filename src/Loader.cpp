@@ -4,6 +4,7 @@
 #include "Loader.h"
 #include <sstream>
 
+// due to VC this cannot be in the header file :(
 const static std::string m_configurationOptions[4] = {
 	"textures",
 	"meshes",
@@ -98,9 +99,9 @@ void Loader::LoadMaterial(std::string pathToFile){
 	
 	std::string materialFile = LoadFileContent(pathToFile);
 
-	float emissive;
-	float shiny;
-	float density;
+	float emissive = 0;
+	float shiny = 0;
+	float density = 0;
 	glm::vec4 ambient;
 	glm::vec4 diffuse;
 	glm::vec4 specular;

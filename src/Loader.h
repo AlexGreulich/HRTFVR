@@ -40,7 +40,7 @@ public:
 protected:
 
 	// preloader config options
-	const static std::string m_configurationOptions[4];
+	//const static std::string m_configurationOptions[4];
 
 	std::map<std::string, Mesh*> m_meshMap;
 	std::map<std::string, Texture*> m_textureMap;
