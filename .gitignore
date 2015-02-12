@@ -6,3 +6,9 @@ CMakeCache.txt
 logs/
 
 myapp
+
+ALL_BUILD*
+Sample*
+ZERO_CHECK*
+cmake_install.cmake
+myapp.vcx*
