@@ -1,5 +1,8 @@
 HRTFVR/HRTFVR/Debug
-myapp
+Debug/
+
 CMakeFiles/
 CMakeCache.txt
 logs/
+
+myapp
