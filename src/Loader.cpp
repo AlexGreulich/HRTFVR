@@ -4,6 +4,13 @@
 #include "Loader.h"
 #include <sstream>
 
+const static std::string m_configurationOptions[4] = {
+	"textures",
+	"meshes",
+	"skyboxes",
+	"materials"
+};
+
 Loader::Loader(){
 	Preload();
 }
@@ -185,7 +192,7 @@ bool Loader::TextureExists(std::string key){
 }
 
 bool Loader::MaterialExists(std::string key){
-
+	return m_materialMap.find(key) != m_materialMap.end();
 }
 
 

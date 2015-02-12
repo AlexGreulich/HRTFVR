@@ -8,7 +8,7 @@ Terrain::Terrain(){
 }
 
 void Terrain::Generate(){
-	int count = VERTEX_COUNT * VERTEX_COUNT;
+	/*int count = VERTEX_COUNT * VERTEX_COUNT;
 	float vertices[count * 3];
 	float normals[count * 3];
 	float textureCoords[count * 2];
@@ -44,7 +44,7 @@ void Terrain::Generate(){
 			indices[pointer++] = bottomLeft;
 			indices[pointer++] = bottomRight;
 		}
-	}
+	}*/
 
 }
 

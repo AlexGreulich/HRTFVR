@@ -4,17 +4,33 @@ project("Sample OpenGL Application")
 
 set(GLEW_ROOT_DIR ${CMAKE_SOURCE_DIR}/include/glew)
 set(GLFW_ROOT_DIR ${CMAKE_SOURCE_DIR}/include/glfw)
-#set(GLUT_ROOT_DIR ${CMAKE_SOURCE_DIR}/include/glut)
 set(GLM_ROOT_DIR ${CMAKE_SOURCE_DIR}/include/glm)
-set(JSON_ROOT_DIR ${CMAKE_SOURCE_DIR}/include/rapidjson)
+
+##
+## GLEW LIB
+add_library(glew_static STATIC IMPORTED)
+
+set_target_properties(
+	glew_static
+	PROPERTIES
+    IMPORTED_LOCATION
+    ${GLEW_ROOT_DIR}/lib/Win32/glew32.lib)
+
+##
+
+##
+## GLFW LIB
+add_library(glfw_static STATIC IMPORTED)
+
+set_target_properties(
+	glfw_static
+	PROPERTIES
+    IMPORTED_LOCATION
+    ${GLFW_ROOT_DIR}/windows/lib-vc2013/glfw3.lib)
+
+##
 
 find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
-find_package(PkgConfig REQUIRED)
-find_package(PkgConfig REQUIRED)
-
-#find_package(GLM REQUIRED)
-pkg_search_module(GLFW REQUIRED glfw3)
 
 file(GLOB_RECURSE SOURCE_FILE_HEADERS src/*.h)
 file(GLOB_RECURSE SOURCE_FILE_IMPLEMENTATIONS src/*.cpp src/*.cc)
@@ -26,20 +42,18 @@ include_directories(
 	${OPENGL_INCLUDE_DIRS}
 	${GLM_ROOT_DIR}
 	${GLEW_ROOT_DIR}/include
-	${GLUT_INCLUDE_DIRS}
 	${GLFW_INCLUDE_DIRS}
-	${JSON_ROOT_DIR}/include
+	${GLFW_ROOT_DIR}/include
 	/usr/include/
 )
 
 link_directories(
 	${GLEW_ROOT_DIR}/include
 	${GLFW_ROOT_DIR}/include
+	${GLFW_ROOT_DIR}/windows/include
 	${GLM_ROOT_DIR}
 	/usr/include/
 )
-
-message("${SOURCE_FILE_IMPLEMENTATIONS}")
 
 add_executable(
 	myapp 
@@ -47,4 +61,12 @@ add_executable(
 	${SOURCE_FILE_IMPLEMENTATIONS}
 )
 
-target_link_libraries(myapp ${OPENGL_LIBRARIES} ${GLEW_ROOT_DIR}/lib/libGLEW.so.1.11.0 ${GLFW_LIBRARIES} )
+
+
+target_link_libraries(
+	myapp
+	${OPENGL_LIBRARIES}
+	${GLFW_LIBRARIES}
+	glew_static
+	glfw_static
+)
