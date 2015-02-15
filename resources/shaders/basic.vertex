@@ -7,11 +7,13 @@ layout(location = 2) in vec3 normal;
 out vec2 texCoord0;
 out vec3 vertexPosition;
 smooth out vec3 N; // normal in viewspace
+out float pass_time;
 
 uniform mat4 modelMat;
 uniform mat4 viewMat;
 uniform mat4 projectionMat;
 uniform mat4 normalMat;
+uniform float time;
 
 void main()
 {
@@ -21,5 +23,6 @@ void main()
 	
 	texCoord0 = texCoord;
 	vertexPosition = vec3(projectedVertex) / projectedVertex.w;
-	gl_Position = (projectionMat * viewMat * modelMat) * vec4(position, 1.0);	
+	gl_Position = (projectionMat * viewMat * modelMat) * vec4( position, 1.0);	
+	pass_time = time;
 }

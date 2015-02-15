@@ -4,6 +4,7 @@ in highp vec3 vertexPosition;
 smooth in highp vec3 N;
 in highp vec2 texCoord0;
 in highp vec3 normal0;
+in lowp float pass_time;
 
 out highp vec4 fColor;
 
@@ -32,6 +33,22 @@ struct Material
 uniform Material meshMat;
 uniform Lightsource light;
 
+highp float rand(in highp vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+highp vec4 applyFog(
+	in highp vec4 rgba,
+	in highp float distance,
+	in highp float density
+	)
+{
+	// constant fog amount
+	highp float fogAmount = 1.0 - exp(-distance * density);
+	highp vec4 fogColor = vec4(0.3,0.3,0.3, 1.0);
+	return mix(rgba, fogColor, fogAmount);
+}
+
 void main()
 {
 	highp vec3 lightDirection = normalize(light.position - vertexPosition);
@@ -55,5 +72,8 @@ void main()
 		+
 		specularComponent * meshMat.specular,
 		0.5
-	);	
+	);
+
+	fColor = applyFog(fColor, length(vertexPosition), 0.08 );
+
 }

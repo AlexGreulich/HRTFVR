@@ -64,6 +64,9 @@ Shader::Shader(const std::string& fileNameVS, const std::string& fileNameFS)
 	m_uniforms[UNIFORM_TEX_SAMPLER_2] = glGetUniformLocation(m_program, "texSampler2");
 	m_uniforms[UNIFORM_TEX_SAMPLER_3] = glGetUniformLocation(m_program, "texSampler3");
 
+	// TIME
+	m_uniforms[UNIFORM_TIME_LOCATION] = glGetUniformLocation(m_program, "time");
+
 }
 
 void Shader::Bind()
@@ -103,6 +106,10 @@ void Shader::UpdateMVP(glm::mat4 model, glm::mat4 view, glm::mat4 projection){
 void Shader::UpdateLight(Light* light){
 	UpdateLightPosition(light->GetPosition());
 	UpdateLightColor(light->GetColor());
+}
+
+void Shader::UpdateTime(double* timer){
+	glUniform1f(m_uniforms[UNIFORM_TIME_LOCATION], (float) *timer);
 }
 
 void Shader::UpdateMaterial(glm::vec4 d,glm::vec4 a,glm::vec4 s,glm::vec4 e,float shiny){

@@ -20,6 +20,7 @@ public:
 	void UpdateMVP(glm::mat4 model, glm::mat4 view, glm::mat4 projection);
 	void UpdateMaterial(glm::vec4 d, glm::vec4 a,glm::vec4 s,glm::vec4 e,float shiny);
 	void UpdateNormalMat(glm::mat4 normal);
+	void UpdateTime(double* timer);
 	void UpdateLightPosition(glm::vec3 lightPosition);
 	void UpdateLightColor(glm::vec3 lightColor);
 	void UpdateLightDirection(glm::vec3 lightDirection);
@@ -57,6 +58,10 @@ private:
 	static const unsigned int UNIFORM_LIGHT_POSITION_LOCATION = 5;
 	static const unsigned int UNIFORM_LIGHT_COLOR_LOCATION = 6;
 	static const unsigned int UNIFORM_LIGHT_ATTENTUATION_LOCATION = 7;
+
+	// TIME
+	static const unsigned int UNIFORM_TIME_LOCATION = 8;
+
 
 	// MATERIAL
 	static const unsigned int UNIFORM_MAT_DIFFUSE_LOCATION = 9;

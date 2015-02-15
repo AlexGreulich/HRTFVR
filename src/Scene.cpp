@@ -7,7 +7,7 @@ Scene::Scene(Loader* loader, Camera* camera, double* timer):
 m_loader(loader),
 m_camera(camera),
 m_timer(timer),
-m_light(new Light(glm::vec3(1000, 1000, -1000), glm::vec3(-1, -1, 1))),
+m_light(new Light(glm::vec3(100, 0, 0), glm::vec3(1, 0, 1))),
 m_skybox(new SkyboxEntity())
 {
 
@@ -23,13 +23,13 @@ m_skybox(new SkyboxEntity())
 		"resources/shaders/skybox.fragment"
 	);
 
-	std::vector<Texture*> mtex;
-	mtex.push_back(m_loader->GetTexture("resources/textures/bricks.jpg"));
+	//std::vector<Texture*> mtex;
+	//mtex.push_back(m_loader->GetTexture("resources/textures/bricks.jpg"));
 	//mtex.push_back(m_loader->GetTexture("resources/textures/SoilMud0091_5_S.jpg"));
-	mtex.push_back(m_loader->GetTexture("resources/textures/Grass0129_9_S.jpg"));
+	//mtex.push_back();
 
 	Entity* terrain = new Entity(
-		mtex,
+		m_loader->GetTexture("resources/textures/Grass0129_9_S.jpg"),
 		m_loader->GetMesh("resources/meshes/terrain_mud.obj"),
 		m_loader->GetMaterial("resources/materials/terrain_mud.mtl"),
 		glm::vec3(0, -5, 0),
@@ -71,6 +71,8 @@ void Scene::Render(){
 			m_camera,
 			(*it)->GetMaterial()
 		);
+
+		basicShader->UpdateTime(m_timer);
 
 		basicShader->UpdateLight(m_light);
 
