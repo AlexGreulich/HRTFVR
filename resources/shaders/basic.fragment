@@ -42,13 +42,18 @@ void main()
 
 	highp float specularComponent = pow(max(dot(halfwayVector, N), 0.0), meshMat.shininess);
 
-	highp vec4 texture = texture2D(texSampler0, texCoord0) + texture2D(texSampler1, texCoord0);
+	highp vec4 texture = mix(
+		texture2D(texSampler0, texCoord0),
+		texture2D(texSampler1, texCoord0),
+		0.5
+	);
 
-	fColor = texture * (
+	fColor = mix(texture,
 		meshMat.ambient
 		+
 		diffuseComponent * meshMat.diffuse
 		+
-		specularComponent * meshMat.specular
+		specularComponent * meshMat.specular,
+		0.5
 	);	
 }

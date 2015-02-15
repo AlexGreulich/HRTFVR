@@ -1,6 +1,7 @@
 HRTFVR/HRTFVR/Debug
 Debug/
 build/
+Makefile
 
 CMakeFiles/
 CMakeCache.txt

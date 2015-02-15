@@ -16,8 +16,8 @@ uniform mat4 normalMat;
 void main()
 {
 	vec4 projectedVertex = viewMat * modelMat * vec4(position, 1.0);
-	N =  mat3( modelMat) * normal;
-	//N = normalize((normalMat * vec4(normal, 0.0)).xyz);
+	//N =  mat3( modelMat) * normal;
+	N = normalize((normalMat * vec4(normal, 0.0)).xyz);
 	
 	texCoord0 = texCoord;
 	vertexPosition = vec3(projectedVertex) / projectedVertex.w;
