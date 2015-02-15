@@ -45,6 +45,8 @@ public:
 
 	void Draw();
 	void BindTexture(Shader* shader);
+	void UnbindTexture();
+
 
 	void SetPosition(glm::vec3 position);
 	void SetTexture(Texture* texture);

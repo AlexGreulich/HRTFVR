@@ -8,6 +8,9 @@
 
 Entity::Entity(){}
 
+/**
+ * TEX / MESH / MAT / POS / TIMER
+ */
 Entity::Entity(Texture* texture, Mesh* mesh, Material* mat, glm::vec3 position, double baseTimer):
 m_texture(texture),
 m_mesh(mesh),
@@ -19,6 +22,27 @@ m_transform()
 	m_transform.SetPos(position);
 }
 
+/**
+ * [VEC]TEXTURES / MESH / MAT / POS / TIMER
+ */
+Entity::Entity(
+	std::vector<Texture*> textures,
+	Mesh* mesh,
+	Material* mat,
+	glm::vec3 position,
+	double baseTimer):
+m_mesh(mesh),
+m_material(mat),
+m_timer(baseTimer),
+m_transform()
+{
+	m_textures = textures;
+	m_transform.SetPos(position);
+}
+
+/**
+ * MESH / MAT / POS / TIMER
+ */
 Entity::Entity(Mesh* mesh, Material* mat, glm::vec3 position, double baseTimer):
 m_texture(new Texture()),
 m_mesh(mesh),
@@ -29,31 +53,25 @@ m_transform()
 	m_transform.SetPos(position);
 }
 
-Entity::Entity(
-	std::vector<Texture*> textures,
-	Mesh* mesh,
-	Material* mat,
-	glm::vec3 position,
-	double baseTimer):
-m_texture(textures.front()),
-m_mesh(mesh),
-m_material(mat),
-m_timer(baseTimer),
-m_transform()
-{
-	m_textures = textures;
-}
-
 void Entity::Draw(){
 	m_mesh->Draw();
 }
 
 void Entity::BindTexture(Shader* shader){
 
-	for( unsigned int i = 0; i < m_textures.size(); i++ ){
+	for( std::vector<Entity*>::size_type i = 0; i < m_textures.size(); i++ ){
 		glActiveTexture(GL_TEXTURE0+i);
-		shader->UpdateTextureSampler( Shader::UNIFORM_TEX_SAMPLER_0 + i, i );
 		glBindTexture(GL_TEXTURE_2D, m_textures[i]->GetId());		
+		shader->UpdateTextureSampler( Shader::UNIFORM_TEX_SAMPLER_0 + i, i );
+	}
+
+}
+
+void Entity::UnbindTexture(){
+
+	for( std::vector<Entity*>::size_type i = 0; i < m_textures.size(); i++ ){
+		glActiveTexture(GL_TEXTURE0+i);
+		glBindTexture(GL_TEXTURE_2D, 0);		
 	}
 
 }
