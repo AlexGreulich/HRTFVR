@@ -46,7 +46,6 @@ float Display::getAspectRatio(){
 }
 
 void Display::ToggleWireframeMode(){
-	std::cout << m_wireframeEnabled << std::endl;
 	if(m_wireframeEnabled == true){
 		DisableWireframeMode();
 	}else{

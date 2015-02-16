@@ -7,7 +7,7 @@ Scene::Scene(Loader* loader, Camera* camera, double* timer):
 m_loader(loader),
 m_camera(camera),
 m_timer(timer),
-m_light(new Light(glm::vec3(100, 0, 0), glm::vec3(1, 0, 1))),
+m_light(new Light(glm::vec3(10, 10, -10), glm::vec3(1, 0, 1))),
 m_skybox(new SkyboxEntity())
 {
 

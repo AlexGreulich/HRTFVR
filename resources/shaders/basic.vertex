@@ -8,6 +8,8 @@ out vec2 texCoord0;
 out vec3 vertexPosition;
 smooth out vec3 N; // normal in viewspace
 out float pass_time;
+out mat4 pass_normalMat;
+out mat4 pass_modelViewMat;
 
 uniform mat4 modelMat;
 uniform mat4 viewMat;
@@ -18,11 +20,11 @@ uniform float time;
 void main()
 {
 	vec4 projectedVertex = viewMat * modelMat * vec4(position, 1.0);
-	//N =  mat3( modelMat) * normal;
-	N = normalize((normalMat * vec4(normal, 0.0)).xyz);
-	
+	N = normal;
 	texCoord0 = texCoord;
 	vertexPosition = vec3(projectedVertex) / projectedVertex.w;
 	gl_Position = (projectionMat * viewMat * modelMat) * vec4( position, 1.0);	
 	pass_time = time;
+	pass_normalMat = normalMat;
+	pass_modelViewMat = viewMat * modelMat;
 }

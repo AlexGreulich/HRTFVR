@@ -3,8 +3,9 @@
 in highp vec3 vertexPosition;
 smooth in highp vec3 N;
 in highp vec2 texCoord0;
-in highp vec3 normal0;
-in lowp float pass_time;
+in highp float pass_time;
+in highp mat4 pass_normalMat;
+in highp mat4 pass_modelViewMat;
 
 out highp vec4 fColor;
 
@@ -51,19 +52,34 @@ highp vec4 applyFog(
 
 void main()
 {
-	highp vec3 lightDirection = normalize(light.position - vertexPosition);
-	highp vec3 viewDirection = normalize(-vertexPosition);
-	highp vec3 halfwayVector = normalize(lightDirection);
-	
-	highp float diffuseComponent = max(dot(N, lightDirection), 0.0);
-
-	highp float specularComponent = pow(max(dot(halfwayVector, N), 0.0), meshMat.shininess);
-
+	//
+	// texture
+	//
 	highp vec4 texture = mix(
 		texture2D(texSampler0, texCoord0),
 		texture2D(texSampler1, texCoord0),
 		0.5
 	);
+
+	// specular light
+	highp float specularComponent = 0.0;
+
+	// move normal to eye space
+	highp vec3 n = normalize(mat3(pass_modelViewMat) * N); 
+
+	// diffuse
+	highp vec3 s =  mat3(pass_normalMat) * normalize( light.position );
+	highp float diffuseComponent = max(dot(n, s), 0.0);
+
+	highp vec3 v = normalize(-vertexPosition);
+	highp vec3 r = reflect(-s, n);
+	if(diffuseComponent > 0.0) {
+	  	specularComponent = pow(
+	  		max(
+	  			dot(r, v), 0.0),
+	  		meshMat.shininess
+	  	);
+	}
 
 	fColor = mix(texture,
 		meshMat.ambient
@@ -75,5 +91,39 @@ void main()
 	);
 
 	fColor = applyFog(fColor, length(vertexPosition), 0.08 );
+
+	// 
+	// <normal-debugging>
+	// 
+		/*
+		fColor = 0.5 + 0.5 * vec4(N, 1.0);
+		*/
+	//
+	// </normal-debugging>
+	//
+
+	// 
+	// <static-lighting-debug>
+	//
+	    /*
+		highp vec3 spec = vec3(0.0);
+		highp vec3 n = normalize(mat3(pass_modelViewMat) * N); // modelview matrix to move the normal into eye space
+		 
+		// diffuse
+		highp vec3 s = mat3(pass_modelViewMat) * normalize(vec3(100.0, 100.0, -100.0));
+		highp float sdn = max(dot(n, s), 0.0);
+		 
+		highp vec3 v = normalize(-vertexPosition);
+		highp vec3 r = reflect(-s, n);
+		if(sdn > 0.0) {
+		  spec = pow(max(dot(r, v), 0.0), 1.3) * vec3(1.0, 0.0, 1.0);
+		}
+		 
+		fColor.a = 1.0;
+		fColor.rgb = vec3(0.0, 0.2, 0.6) * sdn + 0.4 * spec;
+		*/
+	//
+	// </static-lighting-debug>
+	//
 
 }
