@@ -6,7 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-Display::Display(int width, int height, std::string title)
+Display::Display(int width, int height, std::string title):
+m_wireframeEnabled(false)
 {
 	m_width = width;
 	m_height = height;
@@ -42,6 +43,25 @@ Display::Display(int width, int height, std::string title)
 
 float Display::getAspectRatio(){
 	return (float) m_width / m_height;
+}
+
+void Display::ToggleWireframeMode(){
+	std::cout << m_wireframeEnabled << std::endl;
+	if(m_wireframeEnabled == true){
+		DisableWireframeMode();
+	}else{
+		EnableWireframeMode();
+	}
+}
+
+void Display::EnableWireframeMode(){
+	m_wireframeEnabled = true;
+	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+}
+
+void Display::DisableWireframeMode(){
+	m_wireframeEnabled = false;
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void Display::setupOpenGL(){

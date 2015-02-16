@@ -41,7 +41,7 @@ private:
 	int m_ypos;
 
 	double m_timer;
-	double m_createTimer;
+	double m_wireframeTimer;
 	double m_deltaTime;
 };
 

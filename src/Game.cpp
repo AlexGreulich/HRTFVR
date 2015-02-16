@@ -23,9 +23,10 @@ m_scene(new Scene(m_loader, m_camera, &m_timer))
 }
 
 void Game::Update(){
-	m_createTimer--;
 	// get time diff
 	m_deltaTime = glfwGetTime() - m_timer;
+
+	m_wireframeTimer -= m_deltaTime;
 
 	// apply keys to camera view
 	HandleKeys();
@@ -46,6 +47,11 @@ void Game::HandleKey(int key, int scancode, int action, int mods){
 	if (key == GLFW_KEY_ESCAPE){
 		glfwSetWindowShouldClose(m_display->getWindow(), 1);
 		return;
+	}
+
+	if( m_wireframeTimer <= 0 && glfwGetKey(m_display->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS ){
+		m_display->ToggleWireframeMode();
+		m_wireframeTimer = 1;
 	}
 
 	if( glfwGetKey(m_display->getWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ){

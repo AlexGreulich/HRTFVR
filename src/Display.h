@@ -11,6 +11,9 @@ public:
 	Display(int width, int height, std::string title);
 	void Update();
 	void Clear(float r, float g, float b, float a);
+	void ToggleWireframeMode();
+	void EnableWireframeMode();
+	void DisableWireframeMode();
 	int getKey();
 	GLFWwindow* getWindow();
 	int getWidth();
@@ -19,6 +22,7 @@ public:
 	virtual ~Display();
 protected:
 private:
+	bool m_wireframeEnabled;
 	void setupOpenGL();
 	GLFWwindow *m_window;
 	int m_width;
