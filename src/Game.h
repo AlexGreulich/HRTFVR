@@ -42,6 +42,7 @@ private:
 
 	double m_timer;
 	double m_wireframeTimer;
+	double m_fogToggleTimer;
 	double m_deltaTime;
 };
 

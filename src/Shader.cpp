@@ -7,7 +7,8 @@
 #include <iostream>
 #include <fstream>
 
-Shader::Shader(const std::string& fileNameVS, const std::string& fileNameFS)
+Shader::Shader(const std::string& fileNameVS, const std::string& fileNameFS):
+m_fogEnabled(true)
 {
 	m_program = glCreateProgram();
 	
@@ -50,6 +51,9 @@ Shader::Shader(const std::string& fileNameVS, const std::string& fileNameFS)
 	m_uniforms[UNIFORM_LIGHT_DIRECTION_LOCATION] = glGetUniformLocation(m_program, "light.direction");
 	m_uniforms[UNIFORM_LIGHT_ATTENTUATION_LOCATION] = glGetUniformLocation(m_program, "light.attentuation");
 	m_uniforms[UNIFORM_LIGHT_COLOR_LOCATION] = glGetUniformLocation(m_program, "light.color");
+
+	// FOG
+	m_uniforms[UNIFORM_FOG_ENABLED] = glGetUniformLocation(m_program, "enableFog");
 	
 	// MATERIAL
 	m_uniforms[UNIFORM_MAT_DIFFUSE_LOCATION] = glGetUniformLocation(m_program, "meshMat.diffuse");
@@ -138,6 +142,11 @@ void Shader::UpdateLightDirection(glm::vec3 lightDirection){
 
 void Shader::UpdateTextureSampler(GLuint uniform_position, GLuint value){
 	glUniform1i(m_uniforms[uniform_position], value);
+}
+
+void Shader::ToggleFog(){
+	m_fogEnabled = !m_fogEnabled;
+	glUniform1i(m_uniforms[UNIFORM_FOG_ENABLED], m_fogEnabled);
 }
 
 void Shader::SetLightDirection(glm::vec3 direction){

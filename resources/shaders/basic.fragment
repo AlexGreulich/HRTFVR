@@ -1,19 +1,5 @@
 #version 300 es
 
-in highp vec3 vertexPosition;
-smooth in highp vec3 N;
-in highp vec2 texCoord0;
-in highp float pass_time;
-in highp mat4 pass_normalMat;
-in highp mat4 pass_modelViewMat;
-
-out highp vec4 fColor;
-
-uniform highp sampler2D texSampler0;
-uniform highp sampler2D texSampler1;
-uniform highp sampler2D texSampler2;
-uniform highp sampler2D texSampler3;
-
 struct Lightsource
 {
 	highp vec3 position;
@@ -31,13 +17,36 @@ struct Material
 	highp float shininess;
 };
 
+in highp vec3 vertexPosition;
+smooth in highp vec3 N;
+in highp vec2 texCoord0;
+in highp float pass_time;
+in highp mat4 pass_normalMat;
+in highp mat4 pass_modelViewMat;
+
+out highp vec4 fColor;
+
+uniform highp sampler2D texSampler0;
+uniform highp sampler2D texSampler1;
+uniform highp sampler2D texSampler2;
+uniform highp sampler2D texSampler3;
+
 uniform Material meshMat;
 uniform Lightsource light;
+uniform bool enableFog;
 
 highp float rand(in highp vec2 co){
     return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
 
+/**
+ * applies simple exponential fog to a gragment
+ * 
+ * @param {vec4} rgba [the fragment color]
+ * @param {float} distance [the distance of this fragment from the camera]
+ * @param {float} density [fog-scale] 
+ * @return {vec4} rgba [finaly color with applied fog]
+ */
 highp vec4 applyFog(
 	in highp vec4 rgba,
 	in highp float distance,
@@ -76,7 +85,9 @@ void main()
 	if(diffuseComponent > 0.0) {
 	  	specularComponent = pow(
 	  		max(
-	  			dot(r, v), 0.0),
+	  			dot(r, v),
+	  			0.0
+	  		),
 	  		meshMat.shininess
 	  	);
 	}
@@ -90,13 +101,16 @@ void main()
 		0.5
 	);
 
-	fColor = applyFog(fColor, length(vertexPosition), 0.08 );
+	if( enableFog == true ){
+		fColor = applyFog(fColor, length(vertexPosition), 0.02 );
+	}
 
 	// 
 	// <normal-debugging>
+	// displays the normal as color.
 	// 
 		/*
-		fColor = 0.5 + 0.5 * vec4(N, 1.0);
+		fColor = 0.5 + 0.5 * normalize(pass_normalMat * vec4(N, 1.0));
 		*/
 	//
 	// </normal-debugging>
@@ -104,13 +118,15 @@ void main()
 
 	// 
 	// <static-lighting-debug>
+	// calculates the phong-shading with a lightsource of a fixed location (1, 1, -1)
+	// applied diffuse color and specular highlights
 	//
 	    /*
 		highp vec3 spec = vec3(0.0);
 		highp vec3 n = normalize(mat3(pass_modelViewMat) * N); // modelview matrix to move the normal into eye space
 		 
 		// diffuse
-		highp vec3 s = mat3(pass_modelViewMat) * normalize(vec3(100.0, 100.0, -100.0));
+		highp vec3 s = mat3(pass_modelViewMat) * normalize(vec3(1.0, 1.0, -1.0));
 		highp float sdn = max(dot(n, s), 0.0);
 		 
 		highp vec3 v = normalize(-vertexPosition);

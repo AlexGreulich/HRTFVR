@@ -26,6 +26,7 @@ public:
 	void UpdateLightDirection(glm::vec3 lightDirection);
 	void UpdateTextureSampler(GLuint sampler, GLuint value);
 	void UpdateLight(Light* light);
+	void ToggleFog();
 
 	// Setter Methods
 	void SetLightDirection(glm::vec3 direction);
@@ -51,24 +52,27 @@ private:
 	static const unsigned int UNIFORM_VIEW_MATRIX_LOCATION = 1;
 	static const unsigned int UNIFORM_PROJ_MATRIX_LOCATION = 2;
 
-	static const unsigned int UNIFORM_NORMAL_LOCATION = 3;
+	static const unsigned int UNIFORM_NORMAL_LOCATION = 10;
 
 	// LIGHT
-	static const unsigned int UNIFORM_LIGHT_DIRECTION_LOCATION = 4;
-	static const unsigned int UNIFORM_LIGHT_POSITION_LOCATION = 5;
-	static const unsigned int UNIFORM_LIGHT_COLOR_LOCATION = 6;
-	static const unsigned int UNIFORM_LIGHT_ATTENTUATION_LOCATION = 7;
+	static const unsigned int UNIFORM_LIGHT_DIRECTION_LOCATION = 20;
+	static const unsigned int UNIFORM_LIGHT_POSITION_LOCATION = 21;
+	static const unsigned int UNIFORM_LIGHT_COLOR_LOCATION = 22;
+	static const unsigned int UNIFORM_LIGHT_ATTENTUATION_LOCATION = 23;
+
+	// FOG
+	static const unsigned int UNIFORM_FOG_ENABLED = 30;
 
 	// TIME
-	static const unsigned int UNIFORM_TIME_LOCATION = 8;
+	static const unsigned int UNIFORM_TIME_LOCATION = 40;
 
 
 	// MATERIAL
-	static const unsigned int UNIFORM_MAT_DIFFUSE_LOCATION = 9;
-	static const unsigned int UNIFORM_MAT_AMBIENT_LOCATION = 10;
-	static const unsigned int UNIFORM_MAT_SPECULAR_LOCATION = 11;
-	static const unsigned int UNIFORM_MAT_EMISSIVE_LOCATION = 12;
-	static const unsigned int UNIFORM_MAT_SHINE_LOCATION = 13;
+	static const unsigned int UNIFORM_MAT_DIFFUSE_LOCATION = 50;
+	static const unsigned int UNIFORM_MAT_AMBIENT_LOCATION = 51;
+	static const unsigned int UNIFORM_MAT_SPECULAR_LOCATION = 52;
+	static const unsigned int UNIFORM_MAT_EMISSIVE_LOCATION = 53;
+	static const unsigned int UNIFORM_MAT_SHINE_LOCATION = 54;
 
 	Shader(const Shader& shader) {}
 
@@ -78,6 +82,7 @@ private:
 	glm::vec3 m_lightPosition;
 	glm::vec3 m_lightDirection;
 
+	bool m_fogEnabled;
 	GLuint m_program;
 	GLuint m_shaders[NUM_SHADERS];
 	GLuint m_uniforms[NUM_UNIFORMS];

@@ -27,7 +27,8 @@ void Game::Update(){
 	m_deltaTime = glfwGetTime() - m_timer;
 
 	m_wireframeTimer -= m_deltaTime;
-
+	m_fogToggleTimer -= m_deltaTime;
+	
 	// apply keys to camera view
 	HandleKeys();
 	
@@ -49,9 +50,16 @@ void Game::HandleKey(int key, int scancode, int action, int mods){
 		return;
 	}
 
+	if( m_fogToggleTimer <= 0 && glfwGetKey(m_display->getWindow(), GLFW_KEY_F) == GLFW_PRESS ){
+		Shader* basicShader = ShaderFactory::GetInstance().GetShader("basic");
+		basicShader->ToggleFog();
+		m_fogToggleTimer = 0.5;
+
+	}
+
 	if( m_wireframeTimer <= 0 && glfwGetKey(m_display->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS ){
 		m_display->ToggleWireframeMode();
-		m_wireframeTimer = 1;
+		m_wireframeTimer = 0.5;
 	}
 
 	if( glfwGetKey(m_display->getWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ){
