@@ -34,7 +34,7 @@ IndexedModel Geometry::toIndexedModel(int tess, float scale)
 	}
 	
 	//calculate final normals
-	m.normals;	
+	m.normals = std::vector<glm::vec3>(m.indices.size(), glm::vec3(0.0f, 0.0f, 0.0f));
 	for (unsigned int i = 0; i < m.indices.size(); i += 3)
 	{
 		int i0 = m.indices.at(i);
@@ -46,9 +46,9 @@ IndexedModel Geometry::toIndexedModel(int tess, float scale)
 
 		glm::vec3 normal = glm::normalize(glm::cross(v1, v2));
 
-		m.normals.push_back(normal);
-		m.normals.push_back(normal);
-		m.normals.push_back(normal);
+		m.normals.at(i0) += normal;
+		m.normals.at(i1) += normal;
+		m.normals.at(i2) += normal;
 	}
 
 	for (unsigned int i = 0; i < m.normals.size(); i++){
