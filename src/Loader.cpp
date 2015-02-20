@@ -66,7 +66,7 @@ void Loader::Preload(){
 			}
 		}
 	}
-	LoadPlatonicMesh(5, 1, 1.0f);
+	LoadPlatonicMesh(5, 3, 2.0f);
 }
 
 bool Loader::IsConfigContext(std::string* line){
