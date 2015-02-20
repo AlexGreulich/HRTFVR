@@ -20,6 +20,8 @@ public:
 	void MoveBack(float amt);
 	void MoveRight(float amt);
 	void MoveLeft(float amt);
+	void MoveUp(float amt);
+	void MoveDown(float amt);
 
 	void Pitch(float angle);
 	void RotateY(float angle);

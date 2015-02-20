@@ -8,6 +8,7 @@
 #include <vector>
 #include "obj_loader.h"
 #include "Material.h"
+#include "Geometry.h"
 
 struct Vertex
 {
@@ -43,6 +44,8 @@ public:
 	Mesh();
 	Mesh(std::vector<GLfloat>& positions);
 	Mesh(const std::string& fileName);
+	Mesh(Geometry g, int t, float s);
+	
 	void Draw();
 
 	virtual ~Mesh();

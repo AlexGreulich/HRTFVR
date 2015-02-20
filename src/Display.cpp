@@ -71,8 +71,8 @@ void Display::setupOpenGL(){
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
 	glCullFace(GL_BACK);
-
-	glClearColor(0.0f, 0.15f, 0.3f, 1.0f);
+	glPointSize(5.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);//0.0f, 0.15f, 0.3f, 1.0f
 }
 
 void Display::Clear(float r, float g, float b, float a){

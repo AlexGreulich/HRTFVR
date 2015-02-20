@@ -40,12 +40,20 @@ m_skybox(new SkyboxEntity())
 		//m_loader->GetTexture("resources/textures/bricks.jpg"),
 		m_loader->GetMesh("resources/meshes/monkey.obj"),
 		m_loader->GetMaterial("resources/materials/bronze.mtl"),
-		glm::vec3(0, 0, -5),
+		glm::vec3(-2, 0, -5),
 		*m_timer
 	);
 
-	m_entities.push_back(terrain);
-	m_entities.push_back(monkey);
+	Entity*ico = new Entity(
+		m_loader->GetMesh("solid"),
+		m_loader->GetMaterial("resources/materials/bronze.mtl"),
+		glm::vec3(2, 0, -5),
+		*m_timer
+	);
+
+	//m_entities.push_back(terrain);
+	//m_entities.push_back(monkey);
+	m_entities.push_back(ico);
 }
 
 void Scene::Render(){

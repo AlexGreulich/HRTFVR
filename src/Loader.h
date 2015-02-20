@@ -22,6 +22,7 @@ public:
 	// loader
 	void LoadTexture(std::string pathToFile);
 	void LoadMesh(std::string pathToFile);
+	void LoadPlatonicMesh(int i, int t, float s );
 	void LoadMaterial(std::string pathToFile);
 	void LoadCubeTexture(std::string pathToFile);
 

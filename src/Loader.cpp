@@ -66,7 +66,7 @@ void Loader::Preload(){
 			}
 		}
 	}
-
+	LoadPlatonicMesh(5, 1, 1.0f);
 }
 
 bool Loader::IsConfigContext(std::string* line){
@@ -92,6 +92,11 @@ void Loader::LoadCubeTexture(std::string pathToFile){
 void Loader::LoadMesh(std::string pathToFile){
 	LOG(DEBUG) << "[PRELOAD] Loading mesh: " << pathToFile;
 	m_meshMap[pathToFile] = new Mesh(pathToFile);
+}
+
+void Loader::LoadPlatonicMesh(int i, int t, float s){
+	LOG(DEBUG) << "[PRELOAD] Loading platonic mesh # " << "solid" + i << ", tessalation: " << t << "scale: " << s;
+	m_meshMap["solid"] = new Mesh(Geometry(i), t, s);
 }
 
 void Loader::LoadMaterial(std::string pathToFile){

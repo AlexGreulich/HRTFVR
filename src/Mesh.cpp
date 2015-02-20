@@ -33,6 +33,11 @@ m_isSkybox(false)
 	InitMesh(OBJModel(fileName).ToIndexedModel());
 }
 
+Mesh::Mesh(Geometry g, int t, float s):
+m_isSkybox(false){
+	InitMesh(g.toIndexedModel(t,s));
+}
+
 void Mesh::InitMesh(const IndexedModel& model)
 {
 	m_numIndices = model.indices.size();

@@ -83,6 +83,14 @@ void Game::HandleKey(int key, int scancode, int action, int mods){
 		m_camera->MoveBack(m_deltaTime * speed);
 	}
 
+	if (glfwGetKey(m_display->getWindow(), GLFW_KEY_Q) == GLFW_PRESS){
+		m_camera->MoveDown(m_deltaTime * speed);
+	}
+
+	if (glfwGetKey(m_display->getWindow(), GLFW_KEY_E) == GLFW_PRESS){
+		m_camera->MoveUp(m_deltaTime * speed);
+	}
+
 	if ( glfwGetKey(m_display->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS ){
 	}
 

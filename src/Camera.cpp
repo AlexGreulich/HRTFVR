@@ -53,7 +53,14 @@ void Camera::MoveLeft(float amt)
 {
 	m_pos += glm::cross(m_up, m_forward) * amt;
 }
-
+void Camera::MoveUp(float amt)
+{
+	m_pos += m_up * amt;
+}
+void Camera::MoveDown(float amt)
+{
+	m_pos -= m_up * amt;
+}
 void Camera::Pitch(float angle)
 {
 	glm::vec3 right = glm::normalize(glm::cross(m_up, m_forward));
