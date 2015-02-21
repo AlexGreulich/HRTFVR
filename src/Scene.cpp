@@ -45,6 +45,7 @@ m_skybox(new SkyboxEntity())
 	);
 
 	Entity*ico = new Entity(
+		m_loader->GetTexture("resources/textures/Grass0129_9_S.jpg"),
 		m_loader->GetMesh("solid"),
 		m_loader->GetMaterial("resources/materials/bronze.mtl"),
 		glm::vec3(2, 0, -5),

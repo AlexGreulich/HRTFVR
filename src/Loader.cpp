@@ -66,7 +66,8 @@ void Loader::Preload(){
 			}
 		}
 	}
-	LoadPlatonicMesh(5, 3, 2.0f);
+	// solid: 1-5 / tesselation / scale 
+	LoadPlatonicMesh(5, 2, 1.0f);
 }
 
 bool Loader::IsConfigContext(std::string* line){
